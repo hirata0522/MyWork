@@ -1,0 +1,201 @@
+1	0   Attacked
+14	0   Attacked
+19	0   Attacked
+25	0   Attacked
+26	0   Attacked
+28	0   Attacked
+32	0   Attacked
+38	0   Attacked
+42	0   Attacked
+48	0   Attacked
+49	0   Attacked
+54	0   Attacked
+57	0   Attacked
+61	0   Attacked
+64	0   Attacked
+69	0   Attacked
+70	0   Attacked
+74	0   Attacked
+79	0   Attacked
+87	0   Attacked
+89	0   Attacked
+90	0   Attacked
+93	0   Attacked
+94	0   Attacked
+97	0   Attacked
+99	0   Attacked
+111	0   Attacked
+115	0   Attacked
+116	0   Attacked
+118	0   Attacked
+138	0   Attacked
+142	0   Attacked
+155	0   Attacked
+159	0   Attacked
+172	0   Attacked
+179	0   Attacked
+189	0   Attacked
+195	0   Attacked
+21	0   Attacked
+47	0   Attacked
+58	0   Attacked
+5	0   Attacked
+92	0   Attacked
+126	0   Attacked
+160	0   Attacked
+16	0   Attacked
+133	4   Attacked
+73	0   Attacked
+196	0   Attacked
+45	0   Attacked
+114	0   Attacked
+22	0   Attacked
+109	0   Attacked
+185	0   Attacked
+136	0   Attacked
+124	0   Attacked
+105	0   Attacked
+178	0   Attacked
+52	0   Attacked
+150	4   Attacked
+131	1   Attacked
+68	0   Attacked
+191	0   Attacked
+83	3   Attacked
+101	0   Attacked
+95	0   Attacked
+60	0   Attacked
+66	2   Attacked
+18	0   Attacked
+65	0   Attacked
+183	0   Attacked
+56	8   Attacked
+141	8   Attacked
+102	7
+147	0   Attacked
+108	6   Attacked
+125	6   Attacked
+129	6   Attacked
+98	7   Attacked
+165	0   Attacked
+53	6
+59	6
+106	6
+110	6
+112	6
+144	6
+168	6
+184	6
+190	6
+113	0   Attacked
+2	0
+15	0
+20	0
+31	0
+36	0
+39	0
+40	0
+43	0
+44	0
+75	0
+76	0
+78	0
+81	0
+104	0
+117	0
+121	0
+128	0
+132	0
+173	0
+175	0
+29	6   Attacked
+107	6   Attacked
+140	6   Attacked
+51	6   Attacked
+4	0   Attacked
+176	0   Attacked
+7	0   Attacked
+157	8   Attacked
+8	8   Attacked
+11	8   Attacked
+13	8   Attacked
+17	8   Attacked
+50	8   Attacked
+63	8   Attacked
+84	8   Attacked
+100	8   Attacked
+120	8   Attacked
+134	8   Attacked
+137	8   Attacked
+149	8   Attacked
+153	8   Attacked
+194	8   Attacked
+158	2   Attacked
+143	0   Attacked
+85	0   Attacked
+71	0   Attacked
+35	0   Attacked
+123	0   Attacked
+139	0   Attacked
+163	0   Attacked
+80	0   Attacked
+122	0   Attacked
+41	0   Attacked
+161	0   Attacked
+152	0   Attacked
+164	0   Attacked
+3	0   Attacked
+145	0   Attacked
+55	0   Attacked
+127	3   Attacked
+6	5   Attacked
+88	5   Attacked
+103	5   Attacked
+171	5   Attacked
+180	6   Attacked
+186	6   Attacked
+193	6   Attacked
+130	0   Attacked
+151	0   Attacked
+156	2   Attacked
+12	7   Attacked
+24	7   Attacked
+30	7   Attacked
+33	7   Attacked
+67	7   Attacked
+82	7   Attacked
+96	7   Attacked
+119	7   Attacked
+135	7   Attacked
+167	7   Attacked
+181	7   Attacked
+187	7   Attacked
+192	7   Attacked
+200	0   Attacked
+9	0   Attacked
+10	0   Attacked
+23	0   Attacked
+27	0   Attacked
+34	0   Attacked
+37	0   Attacked
+46	0   Attacked
+62	0   Attacked
+72	0   Attacked
+77	0   Attacked
+86	0   Attacked
+91	0   Attacked
+146	0   Attacked
+148	0   Attacked
+154	0   Attacked
+162	0   Attacked
+166	0   Attacked
+169	0   Attacked
+170	0   Attacked
+174	0   Attacked
+177	0   Attacked
+182	0   Attacked
+188	0   Attacked
+197	0   Attacked
+198	0   Attacked
+199	0   Attacked
+-----------------------------
