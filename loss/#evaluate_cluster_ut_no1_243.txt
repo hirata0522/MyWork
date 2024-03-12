@@ -1,0 +1,11 @@
+Parameter
+
+Number of attacker:243
+Iteration:100
+
+TN: mean:46.87/std:4.811766827268338
+Size of cluster: mean:105.37/std:60.7833291289643
+Precision(TN Percentage:TN/(TN+FN)):0.6475903614457833/std:0.3524096385542168
+
+Test Accuracy: mean:0.5433340000000001/std:0.42983401150211464
+---------------------------

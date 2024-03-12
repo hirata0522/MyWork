@@ -1,0 +1,14 @@
+Parameter
+
+Number of attacker:341
+Iteration:100
+
+TN: mean:21.64/std:0.5919459434779496
+Size of cluster: mean:120.31/std:39.044767895327546
+Precision(TN Percentage:TN/(TN+FN)):0.19737442028951255/std:0.054696511106902324
+
+FLCert Main Accuracy: mean:0.9798226164079823
+FLCert Target Accuracy: mean:0.05
+Test Main Accuracy: mean:0.9783891352549893/std:0.0019619774362606692
+Test Target Accuracy: mean:0.3063061224489796/std:0.14955475916590277
+---------------------------

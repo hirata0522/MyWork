@@ -1,0 +1,34 @@
+Parameter
+
+Number of Groups
+M=200
+
+Number of Clients
+N=1000
+
+Clients for each Groups
+k=5
+
+Threshold
+0.00014795538313313927
+
+Group Prediction
+
+TN=851.0
+FP=19.0
+FN=122.0
+TP=8.0
+
+FP percentage=0.021839080459770115
+FN percentage=0.9384615384615385
+
+Client Prediction
+
+TN=97
+FP=0
+FN=87
+TP=16
+
+FP percentage=0.0
+FN percentage=0.8446601941747572
+-----------------------
