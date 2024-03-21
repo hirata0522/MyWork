@@ -111,7 +111,7 @@ def create_model():
     return model
 
 # 並列処理(ローカルモデルの訓練)を行うための関数
-def train_local_model(i, group_x, group_y, clients, global_model, batch_size, epochs,poisoned_group_x,poisoned_group_y,k,TF):
+def train_local_model(i, group_x, group_y, clients, global_model, batch_size, epochs,k,scale,global_model_old,TF):
     if TF[i]:
         #ローカルモデルをグローバルモデルで初期化
         local_model = global_model
@@ -121,18 +121,14 @@ def train_local_model(i, group_x, group_y, clients, global_model, batch_size, ep
     else:
         # print(i)
         #ローカルモデルをグローバルモデルで初期化
-        local_model = global_model
+        old_weight = global_model_old.get_weights()
         global_weights=global_model.get_weights()
-        # print(poisoned_group_y[clients[i]])
-        #クライアントiが属するグループのデータを用いてモデルの学習を行う
-        local_model.fit(poisoned_group_x[clients[i]], poisoned_group_y[clients[i]], batch_size=batch_size, epochs=epochs, verbose=0,shuffle=False)
 
         #グローバルモデルとバックドアモデルの差を計算
-        original_weights=local_model.get_weights()
         sub_weights = [gl *(-1) for gl in global_weights]
-        diff_weights=[np.add(original_weights[j], sub_weights[j]) for j in range(len(sub_weights))]
+        diff_weights=[np.add(old_weight[j], sub_weights[j]) for j in range(len(sub_weights))]
         #差をスケールアップ(ここではクライアント数5倍)
-        tmp_weights=[diff *(k) for diff in diff_weights]
+        tmp_weights=[diff *(-1*k*scale) for diff in diff_weights]
         #スケールアップしたモデルの重みの差に当初のグローバルモデルの重みを加え、最終的な返り値とする
         poisoned_weights = [np.add(tmp_weights[j], global_weights[j]) for j in range(len(global_weights))]
         return poisoned_weights
@@ -178,7 +174,7 @@ def load_arrays_from_files(file_prefix='#group_', file_extension='txt'):
 #iid度を制御するパラメータL(=1~10)を入力としてMNISTを10のグループに分割する
 #そのインデックスが格納された配列をファイル出力する
 #ついでにMNISTのデータも返す
-def create_datasets(L,class1):
+def create_datasets(L):
     #mnisyのダウンロード、必要な処理を行う
     mnist = keras.datasets.mnist
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -188,12 +184,9 @@ def create_datasets(L,class1):
 
     #各グループに含まれるデータのインデックスを格納する配列
     index_group=[[],[],[],[],[],[],[],[],[],[]]
-    index_target=[]
     
     #乱数を用いて各グループにデータを振り分ける
     for i in range(len(x_train)):
-        if y_train[i]==class1:
-            index_target.append(i)
         
         rnd=random.randint(0, 9)
         if rnd<L:
@@ -206,65 +199,14 @@ def create_datasets(L,class1):
 
     for i in range(len(index_group)):
         index_group[i]=np.array(index_group[i])
-    index_target=np.array(index_target)
     # print(index_target)
 
     #インデックスが格納された配列のファイル出力
-    save_arrays_to_files(index_group,file_prefix='#MNIST_',file_extension='txt')
-    save_arrays_to_files([index_target],file_prefix='#targetclass_',file_extension='txt')
+    # save_arrays_to_files(index_group,file_prefix='#MNIST_',file_extension='txt')
+    # save_arrays_to_files([index_target],file_prefix='#targetclass_',file_extension='txt')
 
     #MNISTデータは後々使うので返り値として渡す
     return [x_train, y_train,x_test,y_test]
-
-def create_poisoned_dataset(x_train, y_train,class1,class2):
-    """
-    Args:
-        x_train (_type_): _description_
-        y_train (_type_): _description_
-        class1 (_type_): _description_
-        class2 (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-
-    [group_x,group_y]=load_data("#MNIST_","txt",x_train, y_train)
-    tmp=load_arrays_from_files(file_prefix='#targetclass_',file_extension='txt')[0]
-    group_target=[]
-    for i in range(len(tmp)):
-        group_target.append(x_train[tmp[i]])
-
-    p_group_x=[[],[],[],[],[],[],[],[],[],[]]
-    p_group_y=[[],[],[],[],[],[],[],[],[],[]]
-
-    #groupx,yのデータから標的クラスとなるデータのみを取り除く
-    for i in range(len(group_x)):
-        for j in range(len(group_x[i])):
-            if group_y[i][j]!=class1:
-                p_group_x[i].append(group_x[i][j])
-                p_group_y[i].append(group_y[i][j])
-    poisoned_group_x=[[],[],[],[],[],[],[],[],[],[]]
-    poisoned_group_y=[[],[],[],[],[],[],[],[],[],[]]
-    
-    num2=0
-    len_cl1=len(group_target)
-    for i in range(10):
-        num1=0
-        for j in range(len(group_x[i])):
-            if j%32<22:
-                poisoned_group_x[i].append(p_group_x[i][num1])
-                poisoned_group_y[i].append(p_group_y[i][num1])
-                num1+=1
-            else:
-                poisoned_group_x[i].append(group_target[num2%len_cl1])
-                poisoned_group_y[i].append(class2)
-                num2+=1
-
-    for i in range(len(group_x)):
-        poisoned_group_x[i]=np.array(poisoned_group_x[i])
-        poisoned_group_y[i]=np.array(poisoned_group_y[i])
-    
-    return [poisoned_group_x,poisoned_group_y]
 
 #インデックスが格納された配列を読み込み、訓練データが格納された配列を返す関数
 def load_data(file_prefix,file_extension,x_train, y_train):
@@ -323,13 +265,15 @@ def evaluate_target_attack(x_test,y_test,model,class1):
     return [main_acc,target_acc]
 
 #FLの学習を行う関数
-def FL(group_x, group_y, clients, batch_size, epochs,global_iter,poisoned_group_x,poisoned_group_y,k,TF):
+#FLの学習を行う関数
+def FL(group_x, group_y, clients, batch_size, epochs,global_iter,k,TF,scale):
     # フェデレーテッドラーニングの設定
 
     #グローバルモデルの初期化
    # 重みを格納するリストを初期化
     averaged_weights = []
     global_model=create_model()
+    global_model_old=create_model()
 
     for I in range(global_iter):
         # print(I+1)
@@ -338,7 +282,8 @@ def FL(group_x, group_y, clients, batch_size, epochs,global_iter,poisoned_group_
 
         #各クライアントでモデルの学習・更新情報の集計
         with ThreadPoolExecutor(max_workers=k) as executor:
-            futures = [executor.submit(train_local_model, i, group_x, group_y, clients, global_model, batch_size, epochs,poisoned_group_x,poisoned_group_y,k,TF) for i in range(k)]
+            futures = [executor.submit(train_local_model, i, group_x, group_y, clients, global_model, batch_size, epochs,k,scale,global_model_old,TF) for i in range(k)]
+            #i, group_x, group_y, clients, global_model, batch_size, epochs,k,scale,global_model_old,TF
             local_weights_list = [future.result() for future in futures]
         
             #モデルの重みの和をとる
@@ -350,13 +295,14 @@ def FL(group_x, group_y, clients, batch_size, epochs,global_iter,poisoned_group_
 
         # グローバルモデルの更新
         averaged_weights = [aw / k for aw in averaged_weights]
+        global_model_old=global_model
         global_model.set_weights(averaged_weights)
 
     #グローバルモデルの重みを返す
     return global_model.get_weights()
 
 #FLCertを実行する関数
-def FLCert(M,N,k,batch_size, epochs,global_iter,num,strt,num_old):
+def FLCert(M,N,k,batch_size, epochs,global_iter,num,scale,strt,num_old):
     # データの準備
     mnist = keras.datasets.mnist
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -367,12 +313,9 @@ def FLCert(M,N,k,batch_size, epochs,global_iter,num,strt,num_old):
     # データの準備
     #iidの度合いを表すパラメータL(=1~9)の設定
     L=1
-    class1=0
-    class2=6
-    # [x_train, y_train,x_test,y_test]=create_datasets(L,class1)
-    [group_x,group_y]=load_data('#MNIST_','txt',x_train,y_train)
-    [poisoned_group_x,poisoned_group_y]=create_poisoned_dataset(x_train, y_train,class1,class2)
 
+    # [x_train, y_train,x_test,y_test]=create_datasets(L)
+    [group_x,group_y]=load_data('#MNIST_','txt',x_train,y_train)
     # # 各クライアントが割り当てられるグループをランダムに決定
     # clients = []
 
@@ -428,12 +371,13 @@ def FLCert(M,N,k,batch_size, epochs,global_iter,num,strt,num_old):
         TF_clients.append(tmp)
     #print(tmp_clients)
     # print(TF_clients)
-    
+
     cnt=0
     for i in range(strt-1,M):
         if learn_need[i]:
             cnt+=1
     cnt_now=0
+
     
     for i in range(strt-1,M):
         if learn_need[i]:
@@ -441,11 +385,11 @@ def FLCert(M,N,k,batch_size, epochs,global_iter,num,strt,num_old):
             print(cnt_now,"/",cnt)
             print("グループ%s :学習中" %str(i+1))
             #グループ分けからデータを抽出し、それを用いてFLを実行
-            print(group_clients[i])
             # tmp_clients=[clients[j] for j in group_clients[i]]
             # print(tmp_clients)
+            print(group_clients[i])
             model=create_model()
-            weight=FL(group_x, group_y, tmp_clients[i], batch_size, epochs,global_iter,poisoned_group_x,poisoned_group_y,k,TF_clients[i])
+            weight=FL(group_x, group_y, tmp_clients[i], batch_size, epochs,global_iter,k,TF_clients[i],scale)
             model.set_weights(weight)
             #作成したモデルを保存
             txt="#group_"+str(i+1)+".h5"
@@ -507,6 +451,7 @@ batch_size = 32
 global_iter=200
 epochs=5
 
+scale=100
 # M=2
 # N=10
 # k=2
@@ -516,10 +461,9 @@ epochs=5
 # global_iter=1
 # epochs=1
 
-
 # テストデータで評価
 
-FLCert(M,N,k,batch_size,epochs,global_iter,num,strt,num_old)
+FLCert(M,N,k,batch_size, epochs,global_iter,num,scale,strt,num_old)
 
 # データの準備
 mnist = keras.datasets.mnist
@@ -528,12 +472,14 @@ x_train, x_test = x_train / 255.0, x_test / 255.0
 x_train = np.expand_dims(x_train, -1)
 x_test = np.expand_dims(x_test, -1)
 
+
+
 acc = majority_vote(x_test,y_test,M)
 
 print('\nTest accuracy:', acc)
 
 
-f = open("#FLCert_target_parallel.txt",'a')
+f = open("#FLCert_untarget_parallel.txt",'a')
 
 f.write('Parameter\n\n')
 
@@ -596,8 +542,8 @@ for i in range(M):
     model1=tf.keras.models.load_model(txt)
     model=create_model()
     model.set_weights(model1.get_weights())
-    [main_acc,target_acc] = evaluate_target_attack(x_test,y_test,model,0)
-    f.write('\nGroup '+str(i+1)+' /Main accuracy:'+str(main_acc)+' /Target accuracy:'+str(target_acc))
+    test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
+    f.write('\nGroup '+str(i+1)+' /Test accuracy:'+str(test_acc))
 
 f.write("\n\ntest acc:"+str(acc)+"\n")
 

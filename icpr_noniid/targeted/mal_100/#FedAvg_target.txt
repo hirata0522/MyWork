@@ -1,0 +1,90 @@
+Parameter
+
+algorithm:FedAvg
+dataset:MNIST
+
+number of clients:5
+learning rate:0.001
+batch size:32
+global iteration:200
+local iteration:5
+
+model:CNN
+
+layer:
+Input:28 x 28 x 1
+Convolution + ReLU : 3 x 3 x 30
+Max Pooling : 2 x 2
+Convolution + ReLU : 3 x 3 x 50
+Max Pooling : 2 x 2
+Fully Connected + ReLU : 100
+Softmax : 10
+
+number of malicious clients:1
+
+target class:0
+
+test acc:0.9750554323725056
+target acc:0.9928571428571429
+time:994.1177778244019
+-----------------------
+Parameter
+
+algorithm:FedAvg
+dataset:MNIST
+
+number of clients:5
+learning rate:0.001
+batch size:32
+global iteration:200
+local iteration:5
+
+model:CNN
+
+layer:
+Input:28 x 28 x 1
+Convolution + ReLU : 3 x 3 x 30
+Max Pooling : 2 x 2
+Convolution + ReLU : 3 x 3 x 50
+Max Pooling : 2 x 2
+Fully Connected + ReLU : 100
+Softmax : 10
+
+number of malicious clients:1
+
+target class:0
+
+test acc:0.9805986696230599
+target acc:0.8612244897959184
+time:990.8876490592957
+-----------------------
+Parameter
+
+algorithm:FedAvg
+dataset:MNIST
+
+number of clients:5
+learning rate:0.001
+batch size:32
+global iteration:200
+local iteration:5
+
+model:CNN
+
+layer:
+Input:28 x 28 x 1
+Convolution + ReLU : 3 x 3 x 30
+Max Pooling : 2 x 2
+Convolution + ReLU : 3 x 3 x 50
+Max Pooling : 2 x 2
+Fully Connected + ReLU : 100
+Softmax : 10
+
+number of malicious clients:1
+
+target class:0
+
+test acc:0.9774944567627495
+target acc:0.9683673469387755
+time:983.8516864776611
+-----------------------

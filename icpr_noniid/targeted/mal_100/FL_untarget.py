@@ -9,15 +9,10 @@ import time
 import random
 import statistics
 import math
+import pickle
 
 
 time_strt=time.time()
-
-def check_elements(arr,num_old,num):
-    for element in arr:
-        if num_old-1 < element <= num-1:
-            return True
-    return False
 
 #各行k個の1を含むテスト行列(row×col)をランダムに作成する関数
 def generate_test_matrix(row, col, k):
@@ -111,7 +106,7 @@ def create_model():
     return model
 
 # 並列処理(ローカルモデルの訓練)を行うための関数
-def train_local_model(i, group_x, group_y, clients, global_model, batch_size, epochs,poisoned_group_x,poisoned_group_y,k,TF):
+def train_local_model(i, group_x, group_y, clients, global_model, batch_size, epochs,k,scale,global_model_old,TF):
     if TF[i]:
         #ローカルモデルをグローバルモデルで初期化
         local_model = global_model
@@ -121,18 +116,14 @@ def train_local_model(i, group_x, group_y, clients, global_model, batch_size, ep
     else:
         # print(i)
         #ローカルモデルをグローバルモデルで初期化
-        local_model = global_model
+        old_weight = global_model_old.get_weights()
         global_weights=global_model.get_weights()
-        # print(poisoned_group_y[clients[i]])
-        #クライアントiが属するグループのデータを用いてモデルの学習を行う
-        local_model.fit(poisoned_group_x[clients[i]], poisoned_group_y[clients[i]], batch_size=batch_size, epochs=epochs, verbose=0,shuffle=False)
 
         #グローバルモデルとバックドアモデルの差を計算
-        original_weights=local_model.get_weights()
         sub_weights = [gl *(-1) for gl in global_weights]
-        diff_weights=[np.add(original_weights[j], sub_weights[j]) for j in range(len(sub_weights))]
+        diff_weights=[np.add(old_weight[j], sub_weights[j]) for j in range(len(sub_weights))]
         #差をスケールアップ(ここではクライアント数5倍)
-        tmp_weights=[diff *(k) for diff in diff_weights]
+        tmp_weights=[diff *(-1*k*scale) for diff in diff_weights]
         #スケールアップしたモデルの重みの差に当初のグローバルモデルの重みを加え、最終的な返り値とする
         poisoned_weights = [np.add(tmp_weights[j], global_weights[j]) for j in range(len(global_weights))]
         return poisoned_weights
@@ -178,7 +169,7 @@ def load_arrays_from_files(file_prefix='#group_', file_extension='txt'):
 #iid度を制御するパラメータL(=1~10)を入力としてMNISTを10のグループに分割する
 #そのインデックスが格納された配列をファイル出力する
 #ついでにMNISTのデータも返す
-def create_datasets(L,class1):
+def create_datasets(L,class1,class2):
     #mnisyのダウンロード、必要な処理を行う
     mnist = keras.datasets.mnist
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -187,57 +178,49 @@ def create_datasets(L,class1):
     x_test = np.expand_dims(x_test, -1)
 
     #各グループに含まれるデータのインデックスを格納する配列
-    index_group=[[],[],[],[],[],[],[],[],[],[]]
-    index_target=[]
+
+    group_target=[]
+
+    group_x=[[],[],[],[],[],[],[],[],[],[]]
+    group_y=[[],[],[],[],[],[],[],[],[],[]]
     
     #乱数を用いて各グループにデータを振り分ける
+    cn=0
     for i in range(len(x_train)):
         if y_train[i]==class1:
-            index_target.append(i)
+            group_target.append(x_train[i])
         
         rnd=random.randint(0, 9)
         if rnd<L:
-            index_group[y_train[i]].append(i)
+            cn+=1
+            group_x[y_train[i]].append(x_train[i])
+            group_y[y_train[i]].append(y_train[i])
+
         else:
             numbers = [I for I in range(10) if I != y_train[i]]
             num=random.choice(numbers)
-            index_group[num].append(i)
+            group_x[num].append(x_train[i])
+            group_y[num].append(y_train[i])
 
 
-    for i in range(len(index_group)):
-        index_group[i]=np.array(index_group[i])
-    index_target=np.array(index_target)
+    # print(cn)    
+
+    for i in range(len(group_x)):
+        group_x[i]=np.array(group_x[i])
+    group_target=np.array(group_target)
     # print(index_target)
 
+
     #インデックスが格納された配列のファイル出力
-    save_arrays_to_files(index_group,file_prefix='#MNIST_',file_extension='txt')
-    save_arrays_to_files([index_target],file_prefix='#targetclass_',file_extension='txt')
+    with open('#MNIST_dataset_x.pkl', 'wb') as f:
+        pickle.dump(group_x, f)
+    with open('#MNIST_dataset_y.pkl', 'wb') as f:
+        pickle.dump(group_y, f)
 
-    #MNISTデータは後々使うので返り値として渡す
-    return [x_train, y_train,x_test,y_test]
-
-def create_poisoned_dataset(x_train, y_train,class1,class2):
-    """
-    Args:
-        x_train (_type_): _description_
-        y_train (_type_): _description_
-        class1 (_type_): _description_
-        class2 (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-
-    [group_x,group_y]=load_data("#MNIST_","txt",x_train, y_train)
-    tmp=load_arrays_from_files(file_prefix='#targetclass_',file_extension='txt')[0]
-    group_target=[]
-    for i in range(len(tmp)):
-        group_target.append(x_train[tmp[i]])
 
     p_group_x=[[],[],[],[],[],[],[],[],[],[]]
     p_group_y=[[],[],[],[],[],[],[],[],[],[]]
 
-    #groupx,yのデータから標的クラスとなるデータのみを取り除く
     for i in range(len(group_x)):
         for j in range(len(group_x[i])):
             if group_y[i][j]!=class1:
@@ -250,7 +233,7 @@ def create_poisoned_dataset(x_train, y_train,class1,class2):
     len_cl1=len(group_target)
     for i in range(10):
         num1=0
-        for j in range(len(group_x[i])):
+        for j in range(len(p_group_x[i])):
             if j%32<22:
                 poisoned_group_x[i].append(p_group_x[i][num1])
                 poisoned_group_y[i].append(p_group_y[i][num1])
@@ -260,30 +243,82 @@ def create_poisoned_dataset(x_train, y_train,class1,class2):
                 poisoned_group_y[i].append(class2)
                 num2+=1
 
-    for i in range(len(group_x)):
+    for i in range(len(poisoned_group_x)):
         poisoned_group_x[i]=np.array(poisoned_group_x[i])
         poisoned_group_y[i]=np.array(poisoned_group_y[i])
+
+
+    with open('#MNIST_poisoned_dataset_x.pkl', 'wb') as f:
+        pickle.dump(poisoned_group_x, f)
+    with open('#MNIST_poisoned_dataset_y.pkl', 'wb') as f:
+        pickle.dump(poisoned_group_y, f)    
+    # save_arrays_to_files(index_group,file_prefix='#MNIST_',file_extension='txt')
+    # save_arrays_to_files([index_target],file_prefix='#targetclass_',file_extension='txt')
+
+    # #MNISTデータは後々使うので返り値として渡す
+    # return [x_train, y_train,x_test,y_test]
+
+def create_poisoned_dataset():
+
+    with open('#MNIST_poisoned_dataset_x.pkl', 'rb') as f:
+        poisoned_group_x = pickle.load(f)
+    with open('#MNIST_poisoned_dataset_y.pkl', 'rb') as f:
+        poisoned_group_y = pickle.load(f)  
+
+    for i in range(len(poisoned_group_x)):
+        poisoned_group_x[i]=np.array(poisoned_group_x[i])
+        poisoned_group_y[i]=np.array(poisoned_group_y[i])  
+
+    # cnt=[0,0,0,0,0,0,0,0,0,0]
+    # print(len(poisoned_group_x[1]))
+    # for i in range(len(poisoned_group_x[1])):
+    #     cnt[poisoned_group_y[1][i]]+=1
+    # print(cnt)   
     
     return [poisoned_group_x,poisoned_group_y]
 
 #インデックスが格納された配列を読み込み、訓練データが格納された配列を返す関数
-def load_data(file_prefix,file_extension,x_train, y_train):
-    loaded_arrays = load_arrays_from_files(file_prefix=file_prefix, file_extension=file_extension)
-    # print(len(loaded_arrays))
+def load_data():
+    # loaded_arrays = load_arrays_from_files(file_prefix=file_prefix, file_extension=file_extension)
+    # # print(len(loaded_arrays))
     
-    #グループ0~9までを初期化
-    group_x=[[],[],[],[],[],[],[],[],[],[]]
-    group_y=[[],[],[],[],[],[],[],[],[],[]]
+    # #グループ0~9までを初期化
+    # group_x=[[],[],[],[],[],[],[],[],[],[]]
+    # group_y=[[],[],[],[],[],[],[],[],[],[]]
 
-    for i in range(len(loaded_arrays)):
-        for j in range(len(loaded_arrays[i])):
-            group_x[i].append(x_train[j])
-            group_y[i].append(y_train[j])
+    # for i in range(len(loaded_arrays)):
+    #     for j in range(len(loaded_arrays[i])):
+    #         # group_x[i].append(x_train[loaded_arrays[i][j]])
+    #         # group_y[i].append(y_train[loaded_arrays[i][j]])
+    #         group_x[i].append(x_train[j])
+    #         group_y[i].append(y_train[j])
+    
+    # for i in range(len(group_x)):
+    #     group_x[i]=np.array(group_x[i])
+    #     group_y[i]=np.array(group_y[i])
+    
+    # cnt=[0,0,0,0,0,0,0,0,0,0]
+    # print(len(group_y[1]))
+    # for i in range(len(group_y[1])):
+    #     cnt[y_train[group_y[1][i]]]+=1
+    # print(cnt,"load")    
+    with open('#MNIST_dataset_x.pkl', 'rb') as f:
+        group_x = pickle.load(f)
+    with open('#MNIST_dataset_y.pkl', 'rb') as f:
+        group_y = pickle.load(f)    
     
     for i in range(len(group_x)):
         group_x[i]=np.array(group_x[i])
         group_y[i]=np.array(group_y[i])
     
+    for j in range(len(group_y)):
+        cnt=[0,0,0,0,0,0,0,0,0,0]
+        # print(len(group_y[j]))
+        for i in range(len(group_y[j])):
+            cnt[group_y[j][i]]+=1
+        print("dataset ",j+1,":",cnt)   
+
+
     return [group_x,group_y]
 
 def evaluate_target_attack(x_test,y_test,model,class1):
@@ -323,22 +358,24 @@ def evaluate_target_attack(x_test,y_test,model,class1):
     return [main_acc,target_acc]
 
 #FLの学習を行う関数
-def FL(group_x, group_y, clients, batch_size, epochs,global_iter,poisoned_group_x,poisoned_group_y,k,TF):
+def FL(group_x, group_y, clients, batch_size, epochs,global_iter,k,TF,scale):
     # フェデレーテッドラーニングの設定
 
     #グローバルモデルの初期化
    # 重みを格納するリストを初期化
     averaged_weights = []
     global_model=create_model()
+    global_model_old=create_model()
 
     for I in range(global_iter):
-        # print(I+1)
+        print(I+1)
         #平均の重みを格納する配列を初期化
         averaged_weights = []
 
         #各クライアントでモデルの学習・更新情報の集計
         with ThreadPoolExecutor(max_workers=k) as executor:
-            futures = [executor.submit(train_local_model, i, group_x, group_y, clients, global_model, batch_size, epochs,poisoned_group_x,poisoned_group_y,k,TF) for i in range(k)]
+            futures = [executor.submit(train_local_model, i, group_x, group_y, clients, global_model, batch_size, epochs,k,scale,global_model_old,TF) for i in range(k)]
+            #i, group_x, group_y, clients, global_model, batch_size, epochs,k,scale,global_model_old,TF
             local_weights_list = [future.result() for future in futures]
         
             #モデルの重みの和をとる
@@ -350,36 +387,35 @@ def FL(group_x, group_y, clients, batch_size, epochs,global_iter,poisoned_group_
 
         # グローバルモデルの更新
         averaged_weights = [aw / k for aw in averaged_weights]
+        global_model_old=global_model
         global_model.set_weights(averaged_weights)
 
     #グローバルモデルの重みを返す
     return global_model.get_weights()
 
-#FLCertを実行する関数
-def FLCert(M,N,k,batch_size, epochs,global_iter,num,strt,num_old):
+def FLdo(M,N,k,batch_size, epochs,global_iter,num,scale):
     # データの準備
-    mnist = keras.datasets.mnist
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    x_train, x_test = x_train / 255.0, x_test / 255.0
-    x_train = np.expand_dims(x_train, -1)
-    x_test = np.expand_dims(x_test, -1)
+    # mnist = keras.datasets.mnist
+    # (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    # x_train, x_test = x_train / 255.0, x_test / 255.0
+    # x_train = np.expand_dims(x_train, -1)
+    # x_test = np.expand_dims(x_test, -1)
 
     # データの準備
     #iidの度合いを表すパラメータL(=1~9)の設定
-    L=1
+    L=5
     class1=0
     class2=6
-    # [x_train, y_train,x_test,y_test]=create_datasets(L,class1)
-    [group_x,group_y]=load_data('#MNIST_','txt',x_train,y_train)
-    [poisoned_group_x,poisoned_group_y]=create_poisoned_dataset(x_train, y_train,class1,class2)
+    create_datasets(L,class1,class2)
+    [group_x,group_y]=load_data()
 
-    # # 各クライアントが割り当てられるグループをランダムに決定
-    # clients = []
+    # 各クライアントが割り当てられるグループをランダムに決定
+    clients = []
 
-    # clients=[random.randint(0, 9) for j in range(N)]
+    clients=[random.randint(0, 9) for j in range(N)]
 
-    # #クライアントの所属するグループ情報をファイル出力し保存
-    # save_arrays_to_files([clients],file_prefix="#clients_",file_extension="txt")
+    #クライアントの所属するグループ情報をファイル出力し保存
+    save_arrays_to_files([clients],file_prefix="#clients_",file_extension="txt")
     #読み込んで変数に代入
     #後ろの[0]は渡される型が配列in配列になっているため
     clients=load_arrays_from_files(file_prefix="#clients_",file_extension="txt")[0]
@@ -389,10 +425,10 @@ def FLCert(M,N,k,batch_size, epochs,global_iter,num,strt,num_old):
 
     # #行列のファイル出力
     # save_matrix_to_file(X, file_name='#matrix.txt')
-    X=load_matrix_from_file(file_name='#matrix.txt')
-    # print(X)
+    # X=load_matrix_from_file(file_name='#matrix.txt')
+    # # print(X)
 
-    group_clients=get_indices_of_ones(X)
+    # group_clients=get_indices_of_ones(X)
     # print(group_clients)
     
     # f.write('Matrix\n')
@@ -410,175 +446,64 @@ def FLCert(M,N,k,batch_size, epochs,global_iter,num,strt,num_old):
 
     #グローバルグモデルを格納する辞書を初期化
     # models={}
-
-    learn_need=[]
-    for i in range(M):
-        learn_need.append(check_elements(group_clients[i],num_old,num))
-
-    tmp_clients=[]
-    TF_clients=[]
-    for i in range(M):
-        tmp_clients.append([clients[j] for j in group_clients[i]])
-        tmp=[]
-        for j in range(len(group_clients[i])):
-            if group_clients[i][j]<num:
-                tmp.append(False)
-            else:
-                tmp.append(True)
-        TF_clients.append(tmp)
-    #print(tmp_clients)
-    # print(TF_clients)
     
-    cnt=0
-    for i in range(strt-1,M):
-        if learn_need[i]:
-            cnt+=1
-    cnt_now=0
     
-    for i in range(strt-1,M):
-        if learn_need[i]:
-            cnt_now+=1
-            print(cnt_now,"/",cnt)
-            print("グループ%s :学習中" %str(i+1))
-            #グループ分けからデータを抽出し、それを用いてFLを実行
-            print(group_clients[i])
-            # tmp_clients=[clients[j] for j in group_clients[i]]
-            # print(tmp_clients)
-            model=create_model()
-            weight=FL(group_x, group_y, tmp_clients[i], batch_size, epochs,global_iter,poisoned_group_x,poisoned_group_y,k,TF_clients[i])
-            model.set_weights(weight)
-            #作成したモデルを保存
-            txt="#group_"+str(i+1)+".h5"
-            model.save(txt)
-    
-#多数決を行う関数
-def majority_vote(x_test,y_test,M):
-    #各モデルの推論結果を保存する配列outputの初期化
-    output=[]
-    #print(len(x_test))
-    #print(len(models))
-    append_output=output.append
-    for i in range(M):
-        #モデルの読み込み
-        txt="#group_"+str(i+1)+".h5"
-        model=tf.keras.models.load_model(txt)
-        #モデルを用いて推論の実行
-        pred=model.predict(x_test)
 
-        #予測値を整数値で取得
-        out=np.argmax(pred, axis=1)
-        #結果の保存
-        append_output(out)
-    #正答数を記録する変数の初期化
-    correct_num=0
+    # print("グループ%s :学習中" %str(i+1))
+    # #グループ分けからデータを抽出し、それを用いてFLを実行
+    # # tmp_clients=[clients[j] for j in group_clients[i]]
+    # # print(tmp_clients)
+    TF=[False,True,True,True,True]
+    model=create_model()
+    weight=FL(group_x, group_y, clients, batch_size, epochs,global_iter,N,TF,scale)
+        #    FL(group_x, group_y, clients, batch_size, epochs,global_iter,k,TF,scale)
+    model.set_weights(weight)
+    #作成したモデルを保存
+    txt="#fl_untarget.h5"
+    model.save(txt)
 
-    for i in range(len(x_test)):
-        #i番目の画像に対する各モデルの推論結果を取得する配列の初期化
-        ans=[]
-        append_ans=ans.append
-        for j in range(M):
-            append_ans(output[j][i])
-        #最頻値（多数決の結果を取得する）
-        num=statistics.mode(ans)
-        
-        #多数決が正しかった場合は正答数を加算
-        if y_test[i]==num:
-            correct_num+=1
-    
-    acc=correct_num/len(x_test)
-    return acc
+    return [x_test,y_test]
 
-#パラメータ設定
-M=200
-N=1000
-k=5
-# not attacked model: 150/ attacker: 57
-# not attacked model: 125/ attacker: 91
-# not attacked model: 100/ attacker: 130
-# not attacked model:  75/ attacker: 179
-num=100
-#num_oldはnumよりも小さい
-num_old=57
+M=2
+N=5
+k=N
 
-#strtは学習を開始するグループの番号(1以上)
-strt=1
-
-batch_size = 32
 global_iter=200
 epochs=5
+batch_size=32
+scale=100
 
-# M=2
-# N=10
-# k=2
+num=1
 
-# batch_size = 32
-# num_clients=N
-# global_iter=1
-# epochs=1
+# [x_test,y_test]=FLdo(M,N,k,batch_size, epochs,global_iter,num,scale)
 
 
-# テストデータで評価
-
-FLCert(M,N,k,batch_size,epochs,global_iter,num,strt,num_old)
-
-# データの準備
 mnist = keras.datasets.mnist
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0
 x_train = np.expand_dims(x_train, -1)
 x_test = np.expand_dims(x_test, -1)
+# テストデータで評価
+model1=tf.keras.models.load_model("#fl_untarget.h5")
+model=create_model()
+model.set_weights(model1.get_weights())
 
-acc = majority_vote(x_test,y_test,M)
+test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
+print('\nTest accuracy:', test_acc)
 
-print('\nTest accuracy:', acc)
-
-
-f = open("#FLCert_target_parallel.txt",'a')
+f = open("#FedAvg_untarget.txt",'a')
 
 f.write('Parameter\n\n')
-
-f.write('Number of Groups\n')
-f.write('M=')
-f.writelines(str(M))
-f.write('\n')
-f.write('\n')
-
-f.write('Number of Clients\n')
-f.write('N=')
-f.writelines(str(N))
-f.write('\n')
-f.write('\n')
-
-f.write('Clients for each Groups\n')
-f.write('k=')
-f.writelines(str(k))
-f.write('\n')
-f.write('\n')
-
-f.write('Number of Attackers\n')
-f.write('num=')
-f.writelines(str(num))
-f.write('\n')
-f.write('\n')
-
-# f.write('Datas for each Clients\n')
-# f.write('D=')
-# f.writelines(str(60000/N))
-# f.write('\n')
-# f.write('\n')
-# f.write('\n')
 
 f.write("algorithm:FedAvg\n")
 f.write("dataset:MNIST\n\n")
 
 f.write("number of clients:"+str(N)+"\n")
-f.write("number of groups:"+str(M)+"\n")
-f.write("clients for each group:"+str(k)+"\n\n")
-
 f.write("learning rate:0.001\n")
 f.write("batch size:"+str(batch_size)+"\n")
 f.write("global iteration:"+str(global_iter)+"\n")
 f.write("local iteration:"+str(epochs)+"\n\n")
+
 
 f.write("model:CNN\n\n")
 
@@ -591,20 +516,21 @@ f.write("Max Pooling : 2 x 2\n")
 f.write("Fully Connected + ReLU : 100\n")
 f.write("Softmax : 10\n\n")
 
-for i in range(M):
-    txt="#group_"+str(i+1)+".h5"
-    model1=tf.keras.models.load_model(txt)
-    model=create_model()
-    model.set_weights(model1.get_weights())
-    [main_acc,target_acc] = evaluate_target_attack(x_test,y_test,model,0)
-    f.write('\nGroup '+str(i+1)+' /Main accuracy:'+str(main_acc)+' /Target accuracy:'+str(target_acc))
+f.write("number of malicious clients:"+str(num)+"\n\n")
 
-f.write("\n\ntest acc:"+str(acc)+"\n")
+# f.write("target class:"+str(class1)+"\n\n")
+
+f.write("test acc:"+str(test_acc)+"\n")
+# f.write("target acc:"+str(target_acc)+"\n")
 
 time_end=time.time()
 time_use=time_end-time_strt
 
-f.write("time:"+str(time_use)+"\n\n")
+f.write("time:"+str(time_use)+"\n")
 f.write("-----------------------\n")
 
 f.close()
+
+
+# モデルをファイルに出力
+model.save('fl_target.h5')

@@ -1,0 +1,44 @@
+Parameter
+
+Number of Groups
+M=1
+
+Number of Clients
+N=1000
+
+Clients for each Groups
+k=5
+
+Number of Attackers
+num=100
+
+algorithm:FedAvg
+dataset:MNIST
+
+number of clients:1000
+number of groups:1
+clients for each group:5
+
+learning rate:0.001
+batch size:32
+global iteration:200
+local iteration:5
+
+model:CNN
+
+layer:
+Input:28 x 28 x 1
+Convolution + ReLU : 3 x 3 x 30
+Max Pooling : 2 x 2
+Convolution + ReLU : 3 x 3 x 50
+Max Pooling : 2 x 2
+Fully Connected + ReLU : 100
+Softmax : 10
+
+
+Group 1 /Main accuracy:0.9754988913525499 /Target accuracy:0.9928571428571429
+
+test acc:0.9772
+time:1.2041957378387451
+
+-----------------------
