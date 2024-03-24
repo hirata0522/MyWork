@@ -46,6 +46,8 @@ plt.xticks([0,10,20,30,40,50,60,70,80,90,100])
 plt.legend((g1[0], g2[0]), ("Proposed method", "FLCert"),loc='lower right')
 txt="Acc_target_"+str(group[idx])+"_worst_class.png"
 plt.savefig(txt)
+txt="Acc_target_"+str(group[idx])+"_worst_class.eps"
+plt.savefig(txt)
 plt.clf()
 plt.close()
 
