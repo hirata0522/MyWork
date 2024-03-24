@@ -239,14 +239,14 @@ def create_datasets(L,class1,class2):
     poisoned_group_y=[[],[],[],[],[],[],[],[],[],[]]
     
     num2=0
+    
     len_cl1=len(group_target)
     for i in range(10):
         num1=0
         for j in range(len(p_group_x[i])):
             if j%32<22:
-                # print(i,num1,len(p_group_x[i]))
-                poisoned_group_x[i].append(p_group_x[i][num1])
-                poisoned_group_y[i].append(p_group_y[i][num1])
+                poisoned_group_x[i].append(p_group_x[i][num1%len(p_group_x[i])])
+                poisoned_group_y[i].append(p_group_y[i][num1%len(p_group_x[i])])
                 num1+=1
             else:
                 poisoned_group_x[i].append(group_target[num2%len_cl1])

@@ -440,9 +440,9 @@ k=5
 # not attacked model: 125/ attacker: 91
 # not attacked model: 100/ attacker: 130
 # not attacked model:  75/ attacker: 179
-num=100
+num=200
 #num_oldはnumよりも小さい
-num_old=57
+num_old=100
 
 #strtは学習を開始するグループの番号(1以上)
 strt=1

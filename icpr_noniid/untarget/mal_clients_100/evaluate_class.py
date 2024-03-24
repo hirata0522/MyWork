@@ -445,7 +445,7 @@ def pred_mnist(int):
         Y_MNIST.append(Y_GROUP)
     
     # Y_MNISTを保存します
-    with open('Y_MNIST_target_'+str(gr)+'.pkl', 'wb') as f:
+    with open('Y_MNIST_untarget_'+str(gr)+'.pkl', 'wb') as f:
         pickle.dump(Y_MNIST, f)
 
 def cal_score(N,int,Y_MNIST,models,clients,X,class_a):
@@ -568,7 +568,7 @@ def eval_1(N,M,int):
     x_test = np.expand_dims(x_test, -1)
 
 
-    [group_x,group_y]=load_data()
+    [group_x,group_y]=load_data('#MNIST_','txt',x_train,y_train)
     
     clients=load_arrays_from_files(file_prefix="#clients_",file_extension="txt")[0]
     
@@ -576,7 +576,7 @@ def eval_1(N,M,int):
     Y=create_if_group_poisoned(X,num)
     # print(Y)
 
-    with open('Y_MNIST_target_'+str(gr)+'.pkl', 'rb') as f:
+    with open('Y_MNIST_untarget_'+str(gr)+'.pkl', 'rb') as f:
         Y_MNIST = pickle.load(f)
     
     models=[]
@@ -603,7 +603,7 @@ def eval_1(N,M,int):
 
 
     
-    f = open("#Proposal_target_"+str(gr)+"_worst_class.txt",'a')
+    f = open("#Proposal_untarget_"+str(gr)+"_worst_class.txt",'a')
 
     #ここ以下をwhileで記述し、
     while(len(models)>0):
@@ -638,7 +638,7 @@ def eval_1(N,M,int):
     f.write("-----------------------------")
     f.close()
     # Y_MNISTを保存します
-    with open('delete_target_'+str(gr)+'_worst_class.pkl', 'wb') as f:
+    with open('delete_untarget_'+str(gr)+'_worst_class.pkl', 'wb') as f:
         pickle.dump(delete_models, f)
 
 
@@ -677,12 +677,13 @@ def pred_test(int):
     # print(Y_GROUP)
     
     # Y_MNISTを保存します
-    with open('Test_target_'+str(gr)+'_worst_class.pkl', 'wb') as f:
+    with open('Test_untarget_'+str(gr)+'_worst_class.pkl', 'wb') as f:
         pickle.dump(Y_GROUP, f)
     with open('Test_answer.pkl', 'wb') as f:
         pickle.dump(y_test, f)
 
 def acc_u(idx):
+    NNUM=[100,200,300,400,500]
     GGROUP=[100,200,300,400,500]
     gr=GGROUP[idx]
 
@@ -730,7 +731,7 @@ def acc_u(idx):
         pickle.dump(res, FFF)
     
 def acc_t(idx):
-
+    NNUM=[100,200,300,400,500]
     GGROUP=[100,200,300,400,500]
     gr=GGROUP[idx]
     class1=0
@@ -795,4 +796,4 @@ pred_mnist(idx)
 eval_1(N,M,idx)
 # show_res([196,197,198])
 pred_test(idx)
-acc_t(idx)
+acc_u(idx)

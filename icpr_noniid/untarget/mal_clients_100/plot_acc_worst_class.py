@@ -12,8 +12,8 @@ h=25
 
 idx=0
 
-group=[100,300,500,700,900]
-client=[100,300,500,700,900]
+group=[100,200,300,400,500]
+client=[100,200,300,400,500]
 
 # not attacked model: 150/ attacker: 57
 # not attacked model: 125/ attacker: 91

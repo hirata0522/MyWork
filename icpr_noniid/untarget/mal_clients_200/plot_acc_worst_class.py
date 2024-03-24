@@ -12,8 +12,8 @@ h=25
 
 idx=0
 
-group=[100,200,300,400,500]
-client=[100,200,300,400,500]
+group=[100,300,500,700,900]
+client=[100,300,500,700,900]
 
 # not attacked model: 150/ attacker: 57
 # not attacked model: 125/ attacker: 91
@@ -22,7 +22,7 @@ client=[100,200,300,400,500]
 
 
 # pklファイルから配列を読み込みます
-with open('Acc_target_'+str(group[idx])+'_worst_class.pkl', 'rb') as f:
+with open('Acc_untarget_'+str(group[idx])+'_worst_class.pkl', 'rb') as f:
     Acc = pickle.load(f)
 
 plt.clf()
@@ -36,7 +36,7 @@ g1=plt.plot(A,Acc,color="red")
 g2=plt.plot(A,B,color="blue",linestyle="dashed")
 # ax.fill_between(A, Acc, facecolor='red', alpha=0.5)
 
-plt.title("Target Attack\nMalicious Clients : "+str(client[idx]))
+plt.title("Untarget Attack\nMalicious Clients : "+str(client[idx]))
 plt.xlabel('Model Size (%)')
 plt.ylabel('Accuracy')
 plt.ylim(0,1)
@@ -44,7 +44,7 @@ plt.xlim(0,100)
 plt.xticks([0,10,20,30,40,50,60,70,80,90,100])
 # plt.grid(True)
 plt.legend((g1[0], g2[0]), ("Proposed method", "FLCert"),loc='lower right')
-txt="Acc_target_"+str(group[idx])+"_worst_class.png"
+txt="Acc_untarget_"+str(group[idx])+"_worst_class.png"
 plt.savefig(txt)
 plt.clf()
 plt.close()

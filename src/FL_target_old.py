@@ -8,7 +8,6 @@ from keras import layers
 import time
 import random
 import statistics
-import pickle
 
 time_strt=time.time()
 
@@ -37,7 +36,7 @@ def train_local_model(i, group_x, group_y, clients, global_model, batch_size, ep
         local_model.fit(group_x[clients[i]], group_y[clients[i]], batch_size=batch_size, epochs=epochs, verbose=0)
         return local_model.get_weights()
     else:
-        # print(i,"poisoned")
+        #print(i)
         #ローカルモデルをグローバルモデルで初期化
         local_model = global_model
         global_weights=global_model.get_weights()
@@ -95,7 +94,7 @@ def load_arrays_from_files(file_prefix='#group_', file_extension='txt'):
 #iid度を制御するパラメータL(=1~10)を入力としてMNISTを10のグループに分割する
 #そのインデックスが格納された配列をファイル出力する
 #ついでにMNISTのデータも返す
-def create_datasets(L,class1,class2):
+def create_datasets(L,class1):
     #mnisyのダウンロード、必要な処理を行う
     mnist = keras.datasets.mnist
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -104,49 +103,46 @@ def create_datasets(L,class1,class2):
     x_test = np.expand_dims(x_test, -1)
 
     #各グループに含まれるデータのインデックスを格納する配列
-
-    group_target=[]
-
-    group_x=[[],[],[],[],[],[],[],[],[],[]]
-    group_y=[[],[],[],[],[],[],[],[],[],[]]
+    index_group=[[],[],[],[],[],[],[],[],[],[]]
+    index_target=[]
     
     #乱数を用いて各グループにデータを振り分ける
-    cn=0
     for i in range(len(x_train)):
         if y_train[i]==class1:
-            group_target.append(x_train[i])
+            index_target.append(i)
         
         rnd=random.randint(0, 9)
         if rnd<L:
-            cn+=1
-            group_x[y_train[i]].append(x_train[i])
-            group_y[y_train[i]].append(y_train[i])
-
+            index_group[y_train[i]].append(i)
         else:
             numbers = [I for I in range(10) if I != y_train[i]]
             num=random.choice(numbers)
-            group_x[num].append(x_train[i])
-            group_y[num].append(y_train[i])
+            index_group[num].append(i)
 
 
-    # print(cn)    
-
-    for i in range(len(group_x)):
-        group_x[i]=np.array(group_x[i])
-    group_target=np.array(group_target)
+    for i in range(len(index_group)):
+        index_group[i]=np.array(index_group[i])
+    index_target=np.array(index_target)
     # print(index_target)
 
-
     #インデックスが格納された配列のファイル出力
-    with open('#MNIST_dataset_x.pkl', 'wb') as f:
-        pickle.dump(group_x, f)
-    with open('#MNIST_dataset_y.pkl', 'wb') as f:
-        pickle.dump(group_y, f)
+    save_arrays_to_files(index_group,file_prefix='#MNIST_',file_extension='txt')
+    save_arrays_to_files([index_target],file_prefix='#targetclass_',file_extension='txt')
 
+    #MNISTデータは後々使うので返り値として渡す
+    return [x_train, y_train,x_test,y_test]
+
+def create_poisoned_dataset(x_train, y_train,class1,class2):
+    [group_x,group_y]=load_data("#MNIST_","txt",x_train, y_train)
+    tmp=load_arrays_from_files(file_prefix='#targetclass_',file_extension='txt')[0]
+    group_target=[]
+    for i in range(len(tmp)):
+        group_target.append(x_train[tmp[i]])
 
     p_group_x=[[],[],[],[],[],[],[],[],[],[]]
     p_group_y=[[],[],[],[],[],[],[],[],[],[]]
 
+    #groupx,yのデータから標的クラスとなるデータのみを取り除く
     for i in range(len(group_x)):
         for j in range(len(group_x[i])):
             if group_y[i][j]!=class1:
@@ -159,7 +155,7 @@ def create_datasets(L,class1,class2):
     len_cl1=len(group_target)
     for i in range(10):
         num1=0
-        for j in range(len(p_group_x[i])):
+        for j in range(len(group_x[i])):
             if j%32<22:
                 poisoned_group_x[i].append(p_group_x[i][num1])
                 poisoned_group_y[i].append(p_group_y[i][num1])
@@ -169,69 +165,31 @@ def create_datasets(L,class1,class2):
                 poisoned_group_y[i].append(class2)
                 num2+=1
 
-    for i in range(len(poisoned_group_x)):
+    for i in range(len(group_x)):
         poisoned_group_x[i]=np.array(poisoned_group_x[i])
         poisoned_group_y[i]=np.array(poisoned_group_y[i])
 
-
-    with open('#MNIST_poisoned_dataset_x.pkl', 'wb') as f:
-        pickle.dump(poisoned_group_x, f)
-    with open('#MNIST_poisoned_dataset_y.pkl', 'wb') as f:
-        pickle.dump(poisoned_group_y, f)    
-    # save_arrays_to_files(index_group,file_prefix='#MNIST_',file_extension='txt')
-    # save_arrays_to_files([index_target],file_prefix='#targetclass_',file_extension='txt')
-
-    # #MNISTデータは後々使うので返り値として渡す
-    # return [x_train, y_train,x_test,y_test]
-
-def create_poisoned_dataset():
-
-    with open('#MNIST_poisoned_dataset_x.pkl', 'rb') as f:
-        poisoned_group_x = pickle.load(f)
-    with open('#MNIST_poisoned_dataset_y.pkl', 'rb') as f:
-        poisoned_group_y = pickle.load(f)  
-
-    for i in range(len(poisoned_group_x)):
-        poisoned_group_x[i]=np.array(poisoned_group_x[i])
-        poisoned_group_y[i]=np.array(poisoned_group_y[i])  
-
-    # cnt=[0,0,0,0,0,0,0,0,0,0]
-    # print(len(poisoned_group_x[1]))
-    # for i in range(len(poisoned_group_x[1])):
-    #     cnt[poisoned_group_y[1][i]]+=1
-    # print(cnt)   
+    for j in range(len(poisoned_group_y)):
+        cnt=[0,0,0,0,0,0,0,0,0,0]
+        # print(len(group_y[j]))
+        for i in range(len(poisoned_group_y[j])):
+            cnt[poisoned_group_y[j][i]]+=1
+        print("poisoned dataset ",j+1,":",cnt)   
     
     return [poisoned_group_x,poisoned_group_y]
 
 #インデックスが格納された配列を読み込み、訓練データが格納された配列を返す関数
-def load_data():
-    # loaded_arrays = load_arrays_from_files(file_prefix=file_prefix, file_extension=file_extension)
-    # # print(len(loaded_arrays))
+def load_data(file_prefix,file_extension,x_train, y_train):
+    loaded_arrays = load_arrays_from_files(file_prefix=file_prefix, file_extension=file_extension)
     
-    # #グループ0~9までを初期化
-    # group_x=[[],[],[],[],[],[],[],[],[],[]]
-    # group_y=[[],[],[],[],[],[],[],[],[],[]]
+    #グループ0~9までを初期化
+    group_x=[[],[],[],[],[],[],[],[],[],[]]
+    group_y=[[],[],[],[],[],[],[],[],[],[]]
 
-    # for i in range(len(loaded_arrays)):
-    #     for j in range(len(loaded_arrays[i])):
-    #         # group_x[i].append(x_train[loaded_arrays[i][j]])
-    #         # group_y[i].append(y_train[loaded_arrays[i][j]])
-    #         group_x[i].append(x_train[j])
-    #         group_y[i].append(y_train[j])
-    
-    # for i in range(len(group_x)):
-    #     group_x[i]=np.array(group_x[i])
-    #     group_y[i]=np.array(group_y[i])
-    
-    # cnt=[0,0,0,0,0,0,0,0,0,0]
-    # print(len(group_y[1]))
-    # for i in range(len(group_y[1])):
-    #     cnt[y_train[group_y[1][i]]]+=1
-    # print(cnt,"load")    
-    with open('#MNIST_dataset_x.pkl', 'rb') as f:
-        group_x = pickle.load(f)
-    with open('#MNIST_dataset_y.pkl', 'rb') as f:
-        group_y = pickle.load(f)    
+    for i in range(len(loaded_arrays)):
+        for j in range(len(loaded_arrays[i])):
+            group_x[i].append(x_train[j])
+            group_y[i].append(y_train[j])
     
     for i in range(len(group_x)):
         group_x[i]=np.array(group_x[i])
@@ -243,7 +201,6 @@ def load_data():
         for i in range(len(group_y[j])):
             cnt[group_y[j][i]]+=1
         print("dataset ",j+1,":",cnt)   
-
 
     return [group_x,group_y]
 
@@ -283,15 +240,14 @@ def evaluate_target_attack(x_test,y_test,model,class1):
 
     return [main_acc,target_acc]
     
-
 # データの準備
 #iidの度合いを表すパラメータL(=1~9)の設定
 L=5
 class1=0
 class2=6
-create_datasets(L,class1,class2)
-[group_x,group_y]=load_data()
-[poisoned_group_x,poisoned_group_y]=create_poisoned_dataset()
+[x_train, y_train,x_test,y_test]=create_datasets(L,class1)
+[group_x,group_y]=load_data('#MNIST_','txt',x_train,y_train)
+[poisoned_group_x,poisoned_group_y]=create_poisoned_dataset(x_train, y_train,class1,class2)
 #print(poisoned_group_y)
 
 # フェデレーテッドラーニングの設定
@@ -303,11 +259,11 @@ num=1
 N=num_clients
 
 # データの準備
-mnist = keras.datasets.mnist
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
-x_train, x_test = x_train / 255.0, x_test / 255.0
-x_train = np.expand_dims(x_train, -1)
-x_test = np.expand_dims(x_test, -1)
+# mnist = keras.datasets.mnist
+# (x_train, y_train), (x_test, y_test) = mnist.load_data()
+# x_train, x_test = x_train / 255.0, x_test / 255.0
+# x_train = np.expand_dims(x_train, -1)
+# x_test = np.expand_dims(x_test, -1)
 
 # 各クライアントが割り当てられるグループをランダムに決定
 clients = []
@@ -317,7 +273,7 @@ for i in range(N):
     clients.append(rnd)
 
 #クライアントの所属するグループ情報をファイル出力し保存
-# save_arrays_to_files([clients],file_prefix="#clients_",file_extension="txt")
+save_arrays_to_files([clients],file_prefix="#clients_",file_extension="txt")
 #読み込んで変数に代入
 #後ろの[0]は渡される型が配列in配列になっているため
 clients=load_arrays_from_files(file_prefix="#clients_",file_extension="txt")[0]
