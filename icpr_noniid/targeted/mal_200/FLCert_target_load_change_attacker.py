@@ -537,7 +537,7 @@ epochs=5
 
 # テストデータで評価
 
-# FLCert(M,N,k,batch_size,epochs,global_iter,num,strt,num_old)
+FLCert(M,N,k,batch_size,epochs,global_iter,num,strt,num_old)
 
 # データの準備
 mnist = keras.datasets.mnist

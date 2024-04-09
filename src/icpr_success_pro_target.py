@@ -25,7 +25,7 @@ def cal_E_E_mal(M,m_mal,p_ami,p_mal):
 N=1000
 M=200
 k=5
-p_ami=0.9
+p_ami=0.5
 p_mal=0.1
 p=[0]
 

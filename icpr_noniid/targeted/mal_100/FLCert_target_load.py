@@ -397,16 +397,16 @@ def FLCert(M,N,k,batch_size, epochs,global_iter,num,strt):
     clients=[random.randint(0, 9) for j in range(N)]
 
     #クライアントの所属するグループ情報をファイル出力し保存
-    save_arrays_to_files([clients],file_prefix="#clients_",file_extension="txt")
+    # save_arrays_to_files([clients],file_prefix="#clients_",file_extension="txt")
     #読み込んで変数に代入
     #後ろの[0]は渡される型が配列in配列になっているため
     clients=load_arrays_from_files(file_prefix="#clients_",file_extension="txt")[0]
     
     #グループ分け
-    X=generate_test_matrix(M,N,k)
+    # X=generate_test_matrix(M,N,k)
 
     #行列のファイル出力
-    save_matrix_to_file(X, file_name='#matrix.txt')
+    # save_matrix_to_file(X, file_name='#matrix.txt')
     X=load_matrix_from_file(file_name='#matrix.txt')
     # print(X)
 
@@ -497,7 +497,7 @@ N=1000
 k=5
 #正常なグループ数150
 num=100
-strt=1
+strt=91
 
 
 batch_size = 32

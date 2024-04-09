@@ -1,0 +1,55 @@
+2024-04-07 13:02:40.686936: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-04-07 13:02:40.746800: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-04-07 13:02:40.749753: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2024-04-07 13:02:40.749767: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2024-04-07 13:02:40.764800: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-04-07 13:02:41.116320: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
+2024-04-07 13:02:41.116388: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
+2024-04-07 13:02:41.116395: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+2024-04-07 13:02:41.911540: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2024-04-07 13:02:41.911564: W tensorflow/stream_executor/cuda/cuda_driver.cc:263] failed call to cuInit: UNKNOWN ERROR (303)
+2024-04-07 13:02:41.911574: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:163] no NVIDIA GPU device is present: /dev/nvidia0 does not exist
+2024-04-07 13:02:41.911742: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+dataset  1 : [2979, 394, 363, 304, 297, 281, 352, 393, 333, 344]
+dataset  2 : [331, 3327, 315, 306, 318, 307, 320, 336, 331, 375]
+dataset  3 : [306, 407, 2988, 336, 312, 301, 312, 384, 318, 350]
+dataset  4 : [311, 408, 330, 3121, 335, 319, 330, 328, 328, 313]
+dataset  5 : [324, 394, 341, 356, 2925, 308, 308, 314, 318, 319]
+dataset  6 : [346, 347, 324, 350, 314, 2685, 323, 325, 340, 327]
+dataset  7 : [317, 345, 335, 336, 329, 313, 2950, 336, 325, 314]
+dataset  8 : [341, 395, 305, 330, 347, 305, 360, 3154, 329, 320]
+dataset  9 : [332, 342, 328, 351, 320, 276, 334, 348, 2938, 345]
+dataset  10 : [336, 383, 329, 341, 345, 326, 329, 347, 291, 2942]
+1 / 80
+グループ3 :学習中
+[ 17 340 498 604 764]
+Traceback (most recent call last):
+  File "/workspaces/python_docker_hirata/icpr_noniid/targeted/mal_500/FLCert_target_load_change_attacker.py", line 540, in <module>
+    FLCert(M,N,k,batch_size,epochs,global_iter,num,strt,num_old)
+  File "/workspaces/python_docker_hirata/icpr_noniid/targeted/mal_500/FLCert_target_load_change_attacker.py", line 466, in FLCert
+    weight=FL(group_x, group_y, tmp_clients[i], batch_size, epochs,global_iter,poisoned_group_x,poisoned_group_y,k,TF_clients[i])
+  File "/workspaces/python_docker_hirata/icpr_noniid/targeted/mal_500/FLCert_target_load_change_attacker.py", line 360, in FL
+    local_weights_list = [future.result() for future in futures]
+  File "/workspaces/python_docker_hirata/icpr_noniid/targeted/mal_500/FLCert_target_load_change_attacker.py", line 360, in <listcomp>
+    local_weights_list = [future.result() for future in futures]
+  File "/home/vscode/.pyenv/versions/3.10.13/lib/python3.10/concurrent/futures/_base.py", line 453, in result
+    self._condition.wait(timeout)
+  File "/home/vscode/.pyenv/versions/3.10.13/lib/python3.10/threading.py", line 320, in wait
+    waiter.acquire()
+KeyboardInterrupt
+2024-04-07 13:04:03.590367: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-04-07 13:04:03.650546: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-04-07 13:04:03.653485: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2024-04-07 13:04:03.653500: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2024-04-07 13:04:03.668382: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-04-07 13:04:04.016002: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
+2024-04-07 13:04:04.016046: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
+2024-04-07 13:04:04.016053: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+2024-04-07 13:04:04.804948: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2024-04-07 13:04:04.804976: W tensorflow/stream_executor/cuda/cuda_driver.cc:263] failed call to cuInit: UNKNOWN ERROR (303)
+2024-04-07 13:04:04.804988: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:163] no NVIDIA GPU device is present: /dev/nvidia0 does not exist
+2024-04-07 13:04:04.805149: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.

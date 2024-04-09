@@ -1,0 +1,243 @@
+Parameter
+
+Number of Groups
+M=200
+
+Number of Clients
+N=1000
+
+Clients for each Groups
+k=5
+
+Number of Attackers
+num=300
+
+algorithm:FedAvg
+dataset:MNIST
+
+number of clients:1000
+number of groups:200
+clients for each group:5
+
+learning rate:0.001
+batch size:32
+global iteration:200
+local iteration:5
+
+model:CNN
+
+layer:
+Input:28 x 28 x 1
+Convolution + ReLU : 3 x 3 x 30
+Max Pooling : 2 x 2
+Convolution + ReLU : 3 x 3 x 50
+Max Pooling : 2 x 2
+Fully Connected + ReLU : 100
+Softmax : 10
+
+
+Group 1 /Main accuracy:0.9802660753880266 /Target accuracy:0.513265306122449
+Group 2 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 3 /Main accuracy:0.9766075388026607 /Target accuracy:0.8214285714285714
+Group 4 /Main accuracy:0.9733924611973392 /Target accuracy:0.0
+Group 5 /Main accuracy:0.1139689578713969 /Target accuracy:0.0
+Group 6 /Main accuracy:0.9815964523281596 /Target accuracy:0.0
+Group 7 /Main accuracy:0.9792682926829268 /Target accuracy:0.773469387755102
+Group 8 /Main accuracy:0.980820399113082 /Target accuracy:0.9948979591836735
+Group 9 /Main accuracy:0.984589800443459 /Target accuracy:0.8357142857142857
+Group 10 /Main accuracy:0.9821507760532151 /Target accuracy:0.9887755102040816
+Group 11 /Main accuracy:0.9809312638580931 /Target accuracy:0.07755102040816327
+Group 12 /Main accuracy:0.9870288248337029 /Target accuracy:0.20714285714285716
+Group 13 /Main accuracy:0.988580931263858 /Target accuracy:0.536734693877551
+Group 14 /Main accuracy:0.9860310421286032 /Target accuracy:0.5857142857142857
+Group 15 /Main accuracy:0.983259423503326 /Target accuracy:0.0
+Group 16 /Main accuracy:0.9888026607538802 /Target accuracy:0.35714285714285715
+Group 17 /Main accuracy:0.980709534368071 /Target accuracy:0.9755102040816327
+Group 18 /Main accuracy:0.9803769401330377 /Target accuracy:0.9857142857142858
+Group 19 /Main accuracy:0.914079822616408 /Target accuracy:0.789795918367347
+Group 20 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 21 /Main accuracy:0.9780487804878049 /Target accuracy:0.9887755102040816
+Group 22 /Main accuracy:0.5750554323725056 /Target accuracy:0.9897959183673469
+Group 23 /Main accuracy:0.980709534368071 /Target accuracy:0.1469387755102041
+Group 24 /Main accuracy:0.980709534368071 /Target accuracy:0.9897959183673469
+Group 25 /Main accuracy:0.9800443458980045 /Target accuracy:0.7336734693877551
+Group 26 /Main accuracy:0.9746119733924612 /Target accuracy:0.9785714285714285
+Group 27 /Main accuracy:0.9804878048780488 /Target accuracy:0.9653061224489796
+Group 28 /Main accuracy:0.5698447893569845 /Target accuracy:0.1489795918367347
+Group 29 /Main accuracy:0.9784922394678492 /Target accuracy:0.7969387755102041
+Group 30 /Main accuracy:0.10886917960088692 /Target accuracy:0.0
+Group 31 /Main accuracy:0.9865853658536585 /Target accuracy:0.27040816326530615
+Group 32 /Main accuracy:0.9764966740576496 /Target accuracy:0.9938775510204082
+Group 33 /Main accuracy:0.9814855875831485 /Target accuracy:0.8306122448979592
+Group 34 /Main accuracy:0.974390243902439 /Target accuracy:0.986734693877551
+Group 35 /Main accuracy:0.9819290465631929 /Target accuracy:0.6071428571428571
+Group 36 /Main accuracy:0.9875831485587583 /Target accuracy:0.0
+Group 37 /Main accuracy:0.9811529933481153 /Target accuracy:0.6224489795918368
+Group 38 /Main accuracy:0.9863636363636363 /Target accuracy:0.00816326530612245
+Group 39 /Main accuracy:0.9853658536585366 /Target accuracy:0.9918367346938776
+Group 40 /Main accuracy:0.9771618625277162 /Target accuracy:0.6438775510204081
+Group 41 /Main accuracy:0.12583148558758314 /Target accuracy:0.0
+Group 42 /Main accuracy:0.9761640798226164 /Target accuracy:0.7979591836734694
+Group 43 /Main accuracy:0.9791574279379157 /Target accuracy:0.9857142857142858
+Group 44 /Main accuracy:0.9813747228381374 /Target accuracy:0.7061224489795919
+Group 45 /Main accuracy:0.9811529933481153 /Target accuracy:0.0010204081632653062
+Group 46 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 47 /Main accuracy:0.9786031042128603 /Target accuracy:0.996938775510204
+Group 48 /Main accuracy:0.7987804878048781 /Target accuracy:0.0
+Group 49 /Main accuracy:0.9773835920177384 /Target accuracy:0.4561224489795918
+Group 50 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 51 /Main accuracy:0.9811529933481153 /Target accuracy:0.9928571428571429
+Group 52 /Main accuracy:0.969290465631929 /Target accuracy:0.9918367346938776
+Group 53 /Main accuracy:0.9819290465631929 /Target accuracy:0.47244897959183674
+Group 54 /Main accuracy:0.9837028824833702 /Target accuracy:0.6836734693877551
+Group 55 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 56 /Main accuracy:0.9780487804878049 /Target accuracy:0.9948979591836735
+Group 57 /Main accuracy:0.9854767184035477 /Target accuracy:0.8918367346938776
+Group 58 /Main accuracy:0.9843680709534368 /Target accuracy:0.0010204081632653062
+Group 59 /Main accuracy:0.9817073170731707 /Target accuracy:0.9928571428571429
+Group 60 /Main accuracy:0.9805986696230599 /Target accuracy:0.5877551020408164
+Group 61 /Main accuracy:0.9886917960088691 /Target accuracy:0.5377551020408163
+Group 62 /Main accuracy:0.975720620842572 /Target accuracy:0.5683673469387756
+Group 63 /Main accuracy:0.9831485587583149 /Target accuracy:0.3836734693877551
+Group 64 /Main accuracy:0.9787139689578714 /Target accuracy:0.6285714285714286
+Group 65 /Main accuracy:0.9852549889135255 /Target accuracy:0.0010204081632653062
+Group 66 /Main accuracy:0.980709534368071 /Target accuracy:0.9908163265306122
+Group 67 /Main accuracy:0.9872505543237251 /Target accuracy:0.6755102040816326
+Group 68 /Main accuracy:0.9830376940133038 /Target accuracy:0.5255102040816326
+Group 69 /Main accuracy:0.09889135254988914 /Target accuracy:0.0
+Group 70 /Main accuracy:0.9819290465631929 /Target accuracy:0.9908163265306122
+Group 71 /Main accuracy:0.9834811529933482 /Target accuracy:0.9948979591836735
+Group 72 /Main accuracy:0.9815964523281596 /Target accuracy:0.9244897959183673
+Group 73 /Main accuracy:0.9799334811529934 /Target accuracy:0.886734693877551
+Group 74 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 75 /Main accuracy:0.9737250554323725 /Target accuracy:0.9581632653061225
+Group 76 /Main accuracy:0.47172949002217296 /Target accuracy:0.15306122448979592
+Group 77 /Main accuracy:0.65 /Target accuracy:0.0
+Group 78 /Main accuracy:0.9813747228381374 /Target accuracy:0.9887755102040816
+Group 79 /Main accuracy:0.980820399113082 /Target accuracy:0.8295918367346938
+Group 80 /Main accuracy:0.9793791574279379 /Target accuracy:0.7979591836734694
+Group 81 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 82 /Main accuracy:0.9856984478935699 /Target accuracy:0.26632653061224487
+Group 83 /Main accuracy:0.9763858093126386 /Target accuracy:0.9520408163265306
+Group 84 /Main accuracy:0.9784922394678492 /Target accuracy:0.6255102040816326
+Group 85 /Main accuracy:0.9812638580931264 /Target accuracy:0.8908163265306123
+Group 86 /Main accuracy:0.980820399113082 /Target accuracy:0.9948979591836735
+Group 87 /Main accuracy:0.9817073170731707 /Target accuracy:0.3673469387755102
+Group 88 /Main accuracy:0.9783813747228381 /Target accuracy:0.5285714285714286
+Group 89 /Main accuracy:0.9825942350332594 /Target accuracy:0.0
+Group 90 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 91 /Main accuracy:0.9801552106430155 /Target accuracy:0.24897959183673468
+Group 92 /Main accuracy:0.9748337028824834 /Target accuracy:0.007142857142857143
+Group 93 /Main accuracy:0.9884700665188471 /Target accuracy:0.02857142857142857
+Group 94 /Main accuracy:0.9862527716186252 /Target accuracy:0.0010204081632653062
+Group 95 /Main accuracy:0.9861419068736141 /Target accuracy:0.0010204081632653062
+Group 96 /Main accuracy:0.9742793791574279 /Target accuracy:0.6112244897959184
+Group 97 /Main accuracy:0.9875831485587583 /Target accuracy:0.0
+Group 98 /Main accuracy:0.9843680709534368 /Target accuracy:0.6051020408163266
+Group 99 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 100 /Main accuracy:0.12583148558758314 /Target accuracy:0.0
+Group 101 /Main accuracy:0.9830376940133038 /Target accuracy:0.610204081632653
+Group 102 /Main accuracy:0.9856984478935699 /Target accuracy:0.28775510204081634
+Group 103 /Main accuracy:0.978159645232816 /Target accuracy:0.5744897959183674
+Group 104 /Main accuracy:0.10798226164079823 /Target accuracy:0.0
+Group 105 /Main accuracy:0.11186252771618625 /Target accuracy:0.0
+Group 106 /Main accuracy:0.987139689578714 /Target accuracy:0.5408163265306123
+Group 107 /Main accuracy:0.9827050997782705 /Target accuracy:0.9959183673469387
+Group 108 /Main accuracy:0.9815964523281596 /Target accuracy:0.0
+Group 109 /Main accuracy:0.9793791574279379 /Target accuracy:0.9704081632653061
+Group 110 /Main accuracy:0.9818181818181818 /Target accuracy:0.9928571428571429
+Group 111 /Main accuracy:0.9864745011086474 /Target accuracy:0.0010204081632653062
+Group 112 /Main accuracy:0.9821507760532151 /Target accuracy:0.996938775510204
+Group 113 /Main accuracy:0.9758314855875831 /Target accuracy:0.8346938775510204
+Group 114 /Main accuracy:0.9786031042128603 /Target accuracy:0.7591836734693878
+Group 115 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 116 /Main accuracy:0.9803769401330377 /Target accuracy:0.9938775510204082
+Group 117 /Main accuracy:0.9748337028824834 /Target accuracy:0.9683673469387755
+Group 118 /Main accuracy:0.9767184035476718 /Target accuracy:0.9387755102040817
+Group 119 /Main accuracy:0.9817073170731707 /Target accuracy:0.7418367346938776
+Group 120 /Main accuracy:0.9776053215077606 /Target accuracy:0.9704081632653061
+Group 121 /Main accuracy:0.9767184035476718 /Target accuracy:0.9938775510204082
+Group 122 /Main accuracy:0.9822616407982262 /Target accuracy:0.8816326530612245
+Group 123 /Main accuracy:0.9804878048780488 /Target accuracy:0.373469387755102
+Group 124 /Main accuracy:0.979490022172949 /Target accuracy:0.4602040816326531
+Group 125 /Main accuracy:0.9811529933481153 /Target accuracy:0.9836734693877551
+Group 126 /Main accuracy:0.9814855875831485 /Target accuracy:0.013265306122448979
+Group 127 /Main accuracy:0.9828159645232816 /Target accuracy:0.0
+Group 128 /Main accuracy:0.9838137472283813 /Target accuracy:0.0010204081632653062
+Group 129 /Main accuracy:0.9793791574279379 /Target accuracy:0.9571428571428572
+Group 130 /Main accuracy:0.12583148558758314 /Target accuracy:0.0
+Group 131 /Main accuracy:0.9810421286031042 /Target accuracy:0.7
+Group 132 /Main accuracy:0.975720620842572 /Target accuracy:0.5377551020408163
+Group 133 /Main accuracy:0.9786031042128603 /Target accuracy:0.9806122448979592
+Group 134 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 135 /Main accuracy:0.9801552106430155 /Target accuracy:0.4826530612244898
+Group 136 /Main accuracy:0.9849223946784922 /Target accuracy:0.0
+Group 137 /Main accuracy:0.9852549889135255 /Target accuracy:0.0010204081632653062
+Group 138 /Main accuracy:0.9841463414634146 /Target accuracy:0.015306122448979591
+Group 139 /Main accuracy:0.9847006651884701 /Target accuracy:0.9877551020408163
+Group 140 /Main accuracy:0.9792682926829268 /Target accuracy:0.9887755102040816
+Group 141 /Main accuracy:0.9831485587583149 /Target accuracy:0.9938775510204082
+Group 142 /Main accuracy:0.9802660753880266 /Target accuracy:0.6051020408163266
+Group 143 /Main accuracy:0.9815964523281596 /Target accuracy:0.9897959183673469
+Group 144 /Main accuracy:0.11197339246119734 /Target accuracy:0.0
+Group 145 /Main accuracy:0.9818181818181818 /Target accuracy:0.49795918367346936
+Group 146 /Main accuracy:0.9827050997782705 /Target accuracy:0.9908163265306122
+Group 147 /Main accuracy:0.988359201773836 /Target accuracy:0.0163265306122449
+Group 148 /Main accuracy:0.9773835920177384 /Target accuracy:0.9887755102040816
+Group 149 /Main accuracy:0.9791574279379157 /Target accuracy:0.9959183673469387
+Group 150 /Main accuracy:0.9787139689578714 /Target accuracy:0.5408163265306123
+Group 151 /Main accuracy:0.9805986696230599 /Target accuracy:0.9295918367346939
+Group 152 /Main accuracy:0.9792682926829268 /Target accuracy:0.9285714285714286
+Group 153 /Main accuracy:0.9789356984478935 /Target accuracy:0.7224489795918367
+Group 154 /Main accuracy:0.9831485587583149 /Target accuracy:0.8051020408163265
+Group 155 /Main accuracy:0.9811529933481153 /Target accuracy:0.9979591836734694
+Group 156 /Main accuracy:0.9788248337028825 /Target accuracy:0.9775510204081632
+Group 157 /Main accuracy:0.9861419068736141 /Target accuracy:0.0
+Group 158 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 159 /Main accuracy:0.9788248337028825 /Target accuracy:0.9897959183673469
+Group 160 /Main accuracy:0.9854767184035477 /Target accuracy:0.2693877551020408
+Group 161 /Main accuracy:0.9801552106430155 /Target accuracy:0.7244897959183674
+Group 162 /Main accuracy:0.9802660753880266 /Target accuracy:0.9704081632653061
+Group 163 /Main accuracy:0.9736141906873614 /Target accuracy:0.9428571428571428
+Group 164 /Main accuracy:0.9859201773835921 /Target accuracy:0.45816326530612245
+Group 165 /Main accuracy:0.9839246119733924 /Target accuracy:0.9897959183673469
+Group 166 /Main accuracy:0.9843680709534368 /Target accuracy:0.9877551020408163
+Group 167 /Main accuracy:0.9822616407982262 /Target accuracy:0.9928571428571429
+Group 168 /Main accuracy:0.9860310421286032 /Target accuracy:0.015306122448979591
+Group 169 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 170 /Main accuracy:0.10620842572062084 /Target accuracy:0.0
+Group 171 /Main accuracy:0.9760532150776053 /Target accuracy:0.0673469387755102
+Group 172 /Main accuracy:0.9841463414634146 /Target accuracy:0.7306122448979592
+Group 173 /Main accuracy:0.980709534368071 /Target accuracy:0.8346938775510204
+Group 174 /Main accuracy:0.9856984478935699 /Target accuracy:0.9255102040816326
+Group 175 /Main accuracy:0.9787139689578714 /Target accuracy:0.9959183673469387
+Group 176 /Main accuracy:0.9786031042128603 /Target accuracy:0.9938775510204082
+Group 177 /Main accuracy:0.9786031042128603 /Target accuracy:0.1673469387755102
+Group 178 /Main accuracy:0.9783813747228381 /Target accuracy:0.0
+Group 179 /Main accuracy:0.9805986696230599 /Target accuracy:0.9938775510204082
+Group 180 /Main accuracy:0.9872505543237251 /Target accuracy:0.0
+Group 181 /Main accuracy:0.9817073170731707 /Target accuracy:0.9357142857142857
+Group 182 /Main accuracy:0.9800443458980045 /Target accuracy:0.0020408163265306124
+Group 183 /Main accuracy:0.9797117516629712 /Target accuracy:0.713265306122449
+Group 184 /Main accuracy:0.9789356984478935 /Target accuracy:0.6061224489795919
+Group 185 /Main accuracy:0.9814855875831485 /Target accuracy:0.9357142857142857
+Group 186 /Main accuracy:0.9831485587583149 /Target accuracy:0.3683673469387755
+Group 187 /Main accuracy:0.9819290465631929 /Target accuracy:0.4969387755102041
+Group 188 /Main accuracy:0.9851441241685144 /Target accuracy:0.9887755102040816
+Group 189 /Main accuracy:0.9821507760532151 /Target accuracy:0.9938775510204082
+Group 190 /Main accuracy:0.9804878048780488 /Target accuracy:0.6540816326530612
+Group 191 /Main accuracy:0.9869179600886918 /Target accuracy:0.007142857142857143
+Group 192 /Main accuracy:0.9827050997782705 /Target accuracy:0.9887755102040816
+Group 193 /Main accuracy:0.9852549889135255 /Target accuracy:0.9857142857142858
+Group 194 /Main accuracy:0.9800443458980045 /Target accuracy:0.9948979591836735
+Group 195 /Main accuracy:0.978159645232816 /Target accuracy:0.9897959183673469
+Group 196 /Main accuracy:0.9740576496674057 /Target accuracy:0.9775510204081632
+Group 197 /Main accuracy:0.9760532150776053 /Target accuracy:0.9224489795918367
+Group 198 /Main accuracy:0.9863636363636363 /Target accuracy:0.02040816326530612
+Group 199 /Main accuracy:0.9847006651884701 /Target accuracy:0.05918367346938776
+Group 200 /Main accuracy:0.9865853658536585 /Target accuracy:0.1704081632653061
+
+test acc:0.989
+time:118101.75086474419
+
+-----------------------
