@@ -495,7 +495,7 @@ def cal_score(N,int,Y_MNIST,models,clients,X,class_a):
 
         #各ローカルデータセットの損失を格納する配列に格納
         loss.append(loss_group)
-    
+    print(cs)
 
     final_loss=np.zeros(len(models))
 
@@ -527,6 +527,8 @@ def cal_score(N,int,Y_MNIST,models,clients,X,class_a):
         else:
             tmp=loss[clients[i]]
             # print("honest client",tmp)
+        
+
         if cs[clients[i]]:
             
             for j in range(len(models)):
@@ -790,8 +792,8 @@ k=5
 # not attacked model: 100/ attacker: 130
 # not attacked model:  75/ attacker: 179
 
-idx=3
-pred_mnist(idx)
+idx=0
+# pred_mnist(idx)
 eval_1(N,M,idx)
 # show_res([196,197,198])
 pred_test(idx)

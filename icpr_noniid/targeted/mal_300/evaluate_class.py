@@ -790,7 +790,7 @@ k=5
 # not attacked model: 100/ attacker: 130
 # not attacked model:  75/ attacker: 179
 
-idx=1
+idx=2
 pred_mnist(idx)
 eval_1(N,M,idx)
 # show_res([196,197,198])

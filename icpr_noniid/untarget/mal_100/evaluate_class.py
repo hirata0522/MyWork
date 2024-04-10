@@ -568,7 +568,7 @@ def eval_1(N,M,int):
     x_test = np.expand_dims(x_test, -1)
 
 
-    [group_x,group_y]=load_data('#MNIST_','txt',x_train,y_train)
+    [group_x,group_y]=load_data()
     
     clients=load_arrays_from_files(file_prefix="#clients_",file_extension="txt")[0]
     
@@ -792,7 +792,7 @@ k=5
 # not attacked model:  75/ attacker: 179
 
 idx=0
-pred_mnist(idx)
+# pred_mnist(idx)
 eval_1(N,M,idx)
 # show_res([196,197,198])
 pred_test(idx)

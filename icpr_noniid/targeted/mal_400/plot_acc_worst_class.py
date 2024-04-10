@@ -10,7 +10,7 @@ j=200
 #メモリの幅
 h=25
 
-idx=1
+idx=3
 
 group=[100,200,300,400,500]
 client=[100,200,300,400,500]
@@ -43,7 +43,7 @@ plt.ylim(0,1)
 plt.xlim(0,100)
 plt.xticks([0,10,20,30,40,50,60,70,80,90,100])
 # plt.grid(True)
-plt.legend((g1[0], g2[0]), ("Proposed method", "FLCert"),loc='lower right')
+plt.legend((g1[0], g2[0]), ("Proposed method", "FLCert"))
 txt="Acc_target_"+str(group[idx])+"_worst_class.png"
 plt.savefig(txt)
 txt="Acc_target_"+str(group[idx])+"_worst_class.eps"
