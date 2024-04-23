@@ -579,7 +579,7 @@ num=400
 num_old=300
 
 #strtは学習を開始するグループの番号(1以上)
-strt=1
+strt=102
 
 batch_size = 32
 global_iter=200

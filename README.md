@@ -1,3 +1,8 @@
+# Docker for Python 
+Dockerを用いて実験を行ったディレクトリのログです
+
+python環境構築は[koki-algebra](https://github.com/koki-algebra)さんのものを使用させていただきました
+
 # Python with Poetry
 ## Overview
 Docker で [poetry](https://python-poetry.org/docs/basic-usage/) を使う際のテンプレート. VSCode DevContainer を使って環境構築を行う.
