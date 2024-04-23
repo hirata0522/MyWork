@@ -1,0 +1,28 @@
+Parameter
+
+Number of attacker:130
+Iteration:100
+
+TN: mean:94.17/std:2.8179957416575347
+Size of cluster: mean:165.41/std:16.672189418309763
+Precision(TN Percentage:TN/(TN+FN)):0.5733427299896782/std:0.04021517775099815
+
+FLCert Main Accuracy: mean:0.9740576496674057
+FLCert Target Accuracy: mean:0.9836734693877551
+Test Main Accuracy: mean:0.9730454545454543/std:0.0004894788351314254
+Test Target Accuracy: mean:0.9861734693877551/std:0.0007550330911708137
+---------------------------
+Parameter
+
+Number of attacker:130
+Iteration:100
+
+TN: mean:93.73/std:2.8101779303097523
+Size of cluster: mean:162.33/std:14.969338662746594
+Precision(TN Percentage:TN/(TN+FN)):0.5806345812289101/std:0.03524333560856546
+
+FLCert Main Accuracy: mean:0.975609756097561
+FLCert Target Accuracy: mean:0.9683673469387755
+Test Main Accuracy: mean:0.9734312638580929/std:0.0006135489775677254
+Test Target Accuracy: mean:0.9841326530612242/std:0.0026229650885769484
+---------------------------

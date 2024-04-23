@@ -1,0 +1,402 @@
+155   Attacked
+142   Attacked
+42   Attacked
+99   Attacked
+94   Attacked
+22   Attacked
+133   Attacked
+191   Attacked
+14   Attacked
+71   Attacked
+26   Attacked
+35   Attacked
+122   Attacked
+57   Attacked
+108   Attacked
+90   Attacked
+116   Attacked
+179   Attacked
+79   Attacked
+164   Attacked
+152   Attacked
+195   Attacked
+172   Attacked
+129   Attacked
+137   Attacked
+102
+101
+13
+194   Attacked
+157   Attacked
+50   Attacked
+38   Attacked
+149   Attacked
+68   Attacked
+11   Attacked
+100   Attacked
+89   Attacked
+19   Attacked
+120   Attacked
+17   Attacked
+70
+144
+112
+8
+124
+29
+59
+84
+158
+184
+196
+88   Attacked
+180   Attacked
+151   Attacked
+6   Attacked
+114   Attacked
+32   Attacked
+186   Attacked
+178   Attacked
+4   Attacked
+83   Attacked
+93   Attacked
+111   Attacked
+141   Attacked
+53
+103
+126
+127
+190
+28
+106
+110
+134
+136
+168
+193
+74   Attacked
+113   Attacked
+159   Attacked
+73   Attacked
+98   Attacked
+130   Attacked
+131   Attacked
+139   Attacked
+167   Attacked
+185
+3   Attacked
+109   Attacked
+135   Attacked
+140   Attacked
+150   Attacked
+181   Attacked
+200   Attacked
+1
+7
+15
+24
+33
+39
+45
+55
+60
+64
+67
+75
+76
+80
+82
+97
+119
+145
+147
+153
+156
+160
+165
+171
+173
+176
+183
+187
+192
+2
+5   Attacked
+9   Attacked
+10
+12
+16   Attacked
+18   Attacked
+20
+21   Attacked
+23
+25   Attacked
+27
+30
+31
+34
+36
+37
+40
+41   Attacked
+43
+44
+46
+47   Attacked
+48
+49
+51
+52   Attacked
+54   Attacked
+56
+58
+61   Attacked
+62
+63
+65
+66   Attacked
+69
+72   Attacked
+77
+78
+81
+85   Attacked
+86
+87
+91
+92   Attacked
+95   Attacked
+96
+104
+105
+107
+115   Attacked
+117
+118   Attacked
+121
+123
+125   Attacked
+128
+132
+138
+143
+146   Attacked
+148
+154
+161   Attacked
+162   Attacked
+163
+166
+169
+170
+174
+175
+177
+182
+188   Attacked
+189   Attacked
+197   Attacked
+198   Attacked
+199
+-----------------------------
+155   Attacked
+142   Attacked
+42   Attacked
+99   Attacked
+94   Attacked
+22   Attacked
+133   Attacked
+191   Attacked
+14   Attacked
+71   Attacked
+26   Attacked
+35   Attacked
+122   Attacked
+57   Attacked
+108   Attacked
+90   Attacked
+116   Attacked
+179   Attacked
+79   Attacked
+164   Attacked
+152   Attacked
+195   Attacked
+172   Attacked
+129   Attacked
+137   Attacked
+102
+101
+13
+194   Attacked
+157   Attacked
+50   Attacked
+38   Attacked
+149   Attacked
+68   Attacked
+11   Attacked
+100   Attacked
+89   Attacked
+19   Attacked
+120   Attacked
+17   Attacked
+70
+144
+112
+8
+124
+29
+59
+84
+158
+184
+196
+88   Attacked
+180   Attacked
+151   Attacked
+6   Attacked
+114   Attacked
+32   Attacked
+186   Attacked
+178   Attacked
+4   Attacked
+83   Attacked
+93   Attacked
+111   Attacked
+141   Attacked
+53
+103
+126
+127
+190
+28
+106
+110
+134
+136
+168
+193
+74   Attacked
+113   Attacked
+159   Attacked
+73   Attacked
+98   Attacked
+130   Attacked
+131   Attacked
+139   Attacked
+167   Attacked
+185
+3   Attacked
+109   Attacked
+135   Attacked
+140   Attacked
+150   Attacked
+181   Attacked
+200   Attacked
+1
+7
+15
+24
+33
+39
+45
+55
+60
+64
+67
+75
+76
+80
+82
+97
+119
+145
+147
+153
+156
+160
+165
+171
+173
+176
+183
+187
+192
+2
+5   Attacked
+9   Attacked
+10
+12
+16   Attacked
+18   Attacked
+20
+21   Attacked
+23
+25   Attacked
+27
+30
+31
+34
+36
+37
+40
+41   Attacked
+43
+44
+46
+47   Attacked
+48
+49
+51
+52   Attacked
+54   Attacked
+56
+58
+61   Attacked
+62
+63
+65
+66   Attacked
+69
+72   Attacked
+77
+78
+81
+85   Attacked
+86
+87
+91
+92   Attacked
+95   Attacked
+96
+104
+105
+107
+115   Attacked
+117
+118   Attacked
+121
+123
+125   Attacked
+128
+132
+138
+143
+146   Attacked
+148
+154
+161   Attacked
+162   Attacked
+163
+166
+169
+170
+174
+175
+177
+182
+188   Attacked
+189   Attacked
+197   Attacked
+198   Attacked
+199
+-----------------------------

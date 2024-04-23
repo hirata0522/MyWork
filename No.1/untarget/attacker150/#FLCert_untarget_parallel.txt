@@ -1,0 +1,243 @@
+Parameter
+
+Number of Groups
+M=200
+
+Number of Clients
+N=1000
+
+Clients for each Groups
+k=5
+
+Number of Attackers
+num=57
+
+algorithm:FedAvg
+dataset:MNIST
+
+number of clients:1000
+number of groups:200
+clients for each group:5
+
+learning rate:0.001
+batch size:32
+global iteration:200
+local iteration:5
+
+model:CNN
+
+layer:
+Input:28 x 28 x 1
+Convolution + ReLU : 3 x 3 x 30
+Max Pooling : 2 x 2
+Convolution + ReLU : 3 x 3 x 50
+Max Pooling : 2 x 2
+Fully Connected + ReLU : 100
+Softmax : 10
+
+
+Group 1 /Test accuracy:0.9697999954223633
+Group 2 /Test accuracy:0.9711999893188477
+Group 3 /Test accuracy:0.9689000248908997
+Group 4 /Test accuracy:0.09799999743700027
+Group 5 /Test accuracy:0.9692999720573425
+Group 6 /Test accuracy:0.11349999904632568
+Group 7 /Test accuracy:0.9693999886512756
+Group 8 /Test accuracy:0.9700000286102295
+Group 9 /Test accuracy:0.11349999904632568
+Group 10 /Test accuracy:0.9695000052452087
+Group 11 /Test accuracy:0.9715999960899353
+Group 12 /Test accuracy:0.9696999788284302
+Group 13 /Test accuracy:0.9684000015258789
+Group 14 /Test accuracy:0.11349999904632568
+Group 15 /Test accuracy:0.9710000157356262
+Group 16 /Test accuracy:0.9700000286102295
+Group 17 /Test accuracy:0.9697999954223633
+Group 18 /Test accuracy:0.968999981880188
+Group 19 /Test accuracy:0.9692000150680542
+Group 20 /Test accuracy:0.9678000211715698
+Group 21 /Test accuracy:0.9717000126838684
+Group 22 /Test accuracy:0.11349999904632568
+Group 23 /Test accuracy:0.9703999757766724
+Group 24 /Test accuracy:0.9710000157356262
+Group 25 /Test accuracy:0.9678999781608582
+Group 26 /Test accuracy:0.11349999904632568
+Group 27 /Test accuracy:0.9713000059127808
+Group 28 /Test accuracy:0.968999981880188
+Group 29 /Test accuracy:0.9690999984741211
+Group 30 /Test accuracy:0.9696999788284302
+Group 31 /Test accuracy:0.9708999991416931
+Group 32 /Test accuracy:0.9678999781608582
+Group 33 /Test accuracy:0.9714000225067139
+Group 34 /Test accuracy:0.9678999781608582
+Group 35 /Test accuracy:0.11349999904632568
+Group 36 /Test accuracy:0.9682999849319458
+Group 37 /Test accuracy:0.9677000045776367
+Group 38 /Test accuracy:0.9682000279426575
+Group 39 /Test accuracy:0.9702000021934509
+Group 40 /Test accuracy:0.9690999984741211
+Group 41 /Test accuracy:0.11349999904632568
+Group 42 /Test accuracy:0.09799999743700027
+Group 43 /Test accuracy:0.9708999991416931
+Group 44 /Test accuracy:0.9693999886512756
+Group 45 /Test accuracy:0.9699000120162964
+Group 46 /Test accuracy:0.9697999954223633
+Group 47 /Test accuracy:0.09799999743700027
+Group 48 /Test accuracy:0.968500018119812
+Group 49 /Test accuracy:0.9684000015258789
+Group 50 /Test accuracy:0.9695000052452087
+Group 51 /Test accuracy:0.9693999886512756
+Group 52 /Test accuracy:0.9690999984741211
+Group 53 /Test accuracy:0.9689000248908997
+Group 54 /Test accuracy:0.9703999757766724
+Group 55 /Test accuracy:0.9708999991416931
+Group 56 /Test accuracy:0.9703999757766724
+Group 57 /Test accuracy:0.11349999904632568
+Group 58 /Test accuracy:0.9699000120162964
+Group 59 /Test accuracy:0.9702000021934509
+Group 60 /Test accuracy:0.9696999788284302
+Group 61 /Test accuracy:0.9696000218391418
+Group 62 /Test accuracy:0.9696999788284302
+Group 63 /Test accuracy:0.9714000225067139
+Group 64 /Test accuracy:0.9685999751091003
+Group 65 /Test accuracy:0.9681000113487244
+Group 66 /Test accuracy:0.9670000076293945
+Group 67 /Test accuracy:0.9693999886512756
+Group 68 /Test accuracy:0.968500018119812
+Group 69 /Test accuracy:0.9681000113487244
+Group 70 /Test accuracy:0.9668999910354614
+Group 71 /Test accuracy:0.11349999904632568
+Group 72 /Test accuracy:0.11349999904632568
+Group 73 /Test accuracy:0.11349999904632568
+Group 74 /Test accuracy:0.11349999904632568
+Group 75 /Test accuracy:0.9685999751091003
+Group 76 /Test accuracy:0.9706000089645386
+Group 77 /Test accuracy:0.9703999757766724
+Group 78 /Test accuracy:0.9689000248908997
+Group 79 /Test accuracy:0.11349999904632568
+Group 80 /Test accuracy:0.9704999923706055
+Group 81 /Test accuracy:0.9675999879837036
+Group 82 /Test accuracy:0.9699000120162964
+Group 83 /Test accuracy:0.11349999904632568
+Group 84 /Test accuracy:0.9688000082969666
+Group 85 /Test accuracy:0.9707000255584717
+Group 86 /Test accuracy:0.9702000021934509
+Group 87 /Test accuracy:0.9674000144004822
+Group 88 /Test accuracy:0.11349999904632568
+Group 89 /Test accuracy:0.9695000052452087
+Group 90 /Test accuracy:0.11349999904632568
+Group 91 /Test accuracy:0.9700000286102295
+Group 92 /Test accuracy:0.11349999904632568
+Group 93 /Test accuracy:0.11349999904632568
+Group 94 /Test accuracy:0.09799999743700027
+Group 95 /Test accuracy:0.9700000286102295
+Group 96 /Test accuracy:0.9672999978065491
+Group 97 /Test accuracy:0.9692000150680542
+Group 98 /Test accuracy:0.97079998254776
+Group 99 /Test accuracy:0.09799999743700027
+Group 100 /Test accuracy:0.11349999904632568
+Group 101 /Test accuracy:0.9696000218391418
+Group 102 /Test accuracy:0.9707000255584717
+Group 103 /Test accuracy:0.9696999788284302
+Group 104 /Test accuracy:0.970300018787384
+Group 105 /Test accuracy:0.9690999984741211
+Group 106 /Test accuracy:0.9675999879837036
+Group 107 /Test accuracy:0.9700000286102295
+Group 108 /Test accuracy:0.9679999947547913
+Group 109 /Test accuracy:0.11349999904632568
+Group 110 /Test accuracy:0.9699000120162964
+Group 111 /Test accuracy:0.11349999904632568
+Group 112 /Test accuracy:0.9695000052452087
+Group 113 /Test accuracy:0.09799999743700027
+Group 114 /Test accuracy:0.9700999855995178
+Group 115 /Test accuracy:0.9696999788284302
+Group 116 /Test accuracy:0.11349999904632568
+Group 117 /Test accuracy:0.9678999781608582
+Group 118 /Test accuracy:0.97079998254776
+Group 119 /Test accuracy:0.9692000150680542
+Group 120 /Test accuracy:0.09799999743700027
+Group 121 /Test accuracy:0.9695000052452087
+Group 122 /Test accuracy:0.11349999904632568
+Group 123 /Test accuracy:0.9692999720573425
+Group 124 /Test accuracy:0.9708999991416931
+Group 125 /Test accuracy:0.11349999904632568
+Group 126 /Test accuracy:0.9670000076293945
+Group 127 /Test accuracy:0.9685999751091003
+Group 128 /Test accuracy:0.9681000113487244
+Group 129 /Test accuracy:0.11349999904632568
+Group 130 /Test accuracy:0.9707000255584717
+Group 131 /Test accuracy:0.11349999904632568
+Group 132 /Test accuracy:0.9708999991416931
+Group 133 /Test accuracy:0.11349999904632568
+Group 134 /Test accuracy:0.9675999879837036
+Group 135 /Test accuracy:0.11349999904632568
+Group 136 /Test accuracy:0.9682999849319458
+Group 137 /Test accuracy:0.9682000279426575
+Group 138 /Test accuracy:0.9710999727249146
+Group 139 /Test accuracy:0.9699000120162964
+Group 140 /Test accuracy:0.11349999904632568
+Group 141 /Test accuracy:0.968999981880188
+Group 142 /Test accuracy:0.11349999904632568
+Group 143 /Test accuracy:0.9708999991416931
+Group 144 /Test accuracy:0.970300018787384
+Group 145 /Test accuracy:0.9708999991416931
+Group 146 /Test accuracy:0.9689000248908997
+Group 147 /Test accuracy:0.9696000218391418
+Group 148 /Test accuracy:0.9713000059127808
+Group 149 /Test accuracy:0.11349999904632568
+Group 150 /Test accuracy:0.11349999904632568
+Group 151 /Test accuracy:0.11349999904632568
+Group 152 /Test accuracy:0.9703999757766724
+Group 153 /Test accuracy:0.9706000089645386
+Group 154 /Test accuracy:0.9699000120162964
+Group 155 /Test accuracy:0.11349999904632568
+Group 156 /Test accuracy:0.9692000150680542
+Group 157 /Test accuracy:0.9696999788284302
+Group 158 /Test accuracy:0.9699000120162964
+Group 159 /Test accuracy:0.9708999991416931
+Group 160 /Test accuracy:0.9696999788284302
+Group 161 /Test accuracy:0.9681000113487244
+Group 162 /Test accuracy:0.11349999904632568
+Group 163 /Test accuracy:0.9692000150680542
+Group 164 /Test accuracy:0.11349999904632568
+Group 165 /Test accuracy:0.9695000052452087
+Group 166 /Test accuracy:0.968999981880188
+Group 167 /Test accuracy:0.11349999904632568
+Group 168 /Test accuracy:0.9700999855995178
+Group 169 /Test accuracy:0.9672999978065491
+Group 170 /Test accuracy:0.968500018119812
+Group 171 /Test accuracy:0.9678000211715698
+Group 172 /Test accuracy:0.9678999781608582
+Group 173 /Test accuracy:0.9689000248908997
+Group 174 /Test accuracy:0.9678000211715698
+Group 175 /Test accuracy:0.9672999978065491
+Group 176 /Test accuracy:0.9699000120162964
+Group 177 /Test accuracy:0.9678999781608582
+Group 178 /Test accuracy:0.9682000279426575
+Group 179 /Test accuracy:0.11349999904632568
+Group 180 /Test accuracy:0.11349999904632568
+Group 181 /Test accuracy:0.09799999743700027
+Group 182 /Test accuracy:0.970300018787384
+Group 183 /Test accuracy:0.9700000286102295
+Group 184 /Test accuracy:0.9693999886512756
+Group 185 /Test accuracy:0.9699000120162964
+Group 186 /Test accuracy:0.9713000059127808
+Group 187 /Test accuracy:0.9696999788284302
+Group 188 /Test accuracy:0.09799999743700027
+Group 189 /Test accuracy:0.9710000157356262
+Group 190 /Test accuracy:0.9710000157356262
+Group 191 /Test accuracy:0.11349999904632568
+Group 192 /Test accuracy:0.9710999727249146
+Group 193 /Test accuracy:0.9696999788284302
+Group 194 /Test accuracy:0.11349999904632568
+Group 195 /Test accuracy:0.11349999904632568
+Group 196 /Test accuracy:0.9702000021934509
+Group 197 /Test accuracy:0.09799999743700027
+Group 198 /Test accuracy:0.09799999743700027
+Group 199 /Test accuracy:0.9697999954223633
+Group 200 /Test accuracy:0.9679999947547913
+
+test acc:0.9737
+time:49408.721534729004
+
+-----------------------
