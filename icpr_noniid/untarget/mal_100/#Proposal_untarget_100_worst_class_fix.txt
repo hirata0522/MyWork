@@ -1,0 +1,201 @@
+1	0   Attacked
+3	0   Attacked
+6	0   Attacked
+7	0   Attacked
+10	0   Attacked
+16	0   Attacked
+23	0   Attacked
+25	0   Attacked
+35	0   Attacked
+38	0   Attacked
+43	0   Attacked
+48	0   Attacked
+51	0   Attacked
+54	0   Attacked
+56	0   Attacked
+59	0   Attacked
+61	0   Attacked
+62	0   Attacked
+67	0   Attacked
+69	0   Attacked
+70	0   Attacked
+71	0   Attacked
+74	0   Attacked
+84	0   Attacked
+85	0   Attacked
+86	0   Attacked
+87	0   Attacked
+91	0   Attacked
+92	0   Attacked
+93	0   Attacked
+96	0   Attacked
+99	0   Attacked
+101	0   Attacked
+103	0   Attacked
+104	0   Attacked
+105	0   Attacked
+106	0   Attacked
+113	0   Attacked
+116	0   Attacked
+118	0   Attacked
+121	0   Attacked
+122	0   Attacked
+126	0   Attacked
+129	0   Attacked
+135	0   Attacked
+136	0   Attacked
+137	0   Attacked
+139	0   Attacked
+140	0   Attacked
+147	0   Attacked
+148	0   Attacked
+149	0   Attacked
+151	0   Attacked
+152	0   Attacked
+156	0   Attacked
+159	0   Attacked
+160	0   Attacked
+162	0   Attacked
+163	0   Attacked
+173	0   Attacked
+175	0   Attacked
+179	0   Attacked
+180	0   Attacked
+181	0   Attacked
+186	0   Attacked
+187	0   Attacked
+188	0   Attacked
+189	0   Attacked
+191	0   Attacked
+11	1   Attacked
+27	1   Attacked
+32	1   Attacked
+33	1   Attacked
+36	1   Attacked
+42	1   Attacked
+44	1   Attacked
+49	1   Attacked
+50	1   Attacked
+60	1   Attacked
+65	1   Attacked
+73	1   Attacked
+83	1   Attacked
+95	1   Attacked
+111	1   Attacked
+114	1   Attacked
+134	1   Attacked
+150	1   Attacked
+155	1   Attacked
+171	1   Attacked
+176	1   Attacked
+178	1   Attacked
+128	1
+28	1
+190	1
+98	0
+34	1
+197	1
+109	1
+58	1
+55	9
+192	1
+30	1
+76	1
+72	1
+146	3
+46	0
+110	0
+138	3
+200	1
+115	1
+63	1
+143	9
+9	6
+174	3
+22	8
+15	1
+199	0
+82	1
+144	1
+66	8
+37	4
+165	4
+57	9
+182	3
+75	9
+193	9
+195	6
+164	1
+141	1
+157	9
+89	4
+2	1
+80	6
+53	6
+88	6
+102	6
+8	3
+107	3
+133	3
+145	3
+68	6
+108	6
+124	6
+5	1
+40	3
+4	3
+21	3
+131	3
+24	3
+132	3
+17	9
+94	9
+97	3
+142	3
+100	3
+120	3
+130	3
+196	1
+39	1
+20	8
+172	9
+78	3
+41	9
+79	9
+112	9
+125	9
+29	9
+81	9
+161	9
+18	9
+123	9
+167	9
+153	9
+90	5
+117	5
+14	8
+12	8
+194	7
+64	0
+47	6
+26	0
+170	6
+13	6
+52	5
+185	4
+45	5
+154	5
+166	3
+127	1
+169	1
+198	1
+158	1
+177	1
+183	1
+19	5
+31	4
+77	1
+184	8
+168	4
+119	0
+-----------------------------

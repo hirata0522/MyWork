@@ -495,7 +495,7 @@ def cal_score(N,int,Y_MNIST,models,clients,X,class_a):
 
         #各ローカルデータセットの損失を格納する配列に格納
         loss.append(loss_group)
-    print(cs)
+    # print(cs)
 
     final_loss=np.zeros(len(models))
 
@@ -522,24 +522,36 @@ def cal_score(N,int,Y_MNIST,models,clients,X,class_a):
                     tmp[j]=1
 
                     # ここで(クラス数-1)掛けるのが最適
+            if True:
+            
+                for j in range(len(models)):
+                    final_loss[j]=tmp[j]+final_loss[j]
+                    cs_clients+=1
+            # print("client",i,"tmp_loss",tmp,"final_loss",final_loss)
 
             # print("attacker",tmp)
         else:
             tmp=loss[clients[i]]
+            if cs[clients[i]]:
+            
+                for j in range(len(models)):
+                    final_loss[j]=tmp[j]+final_loss[j]
+                    cs_clients+=1
+            # print("client",i,"tmp_loss",tmp,"final_loss",final_loss)
+
             # print("honest client",tmp)
         
 
-        if cs[clients[i]]:
-            
-            for j in range(len(models)):
-                final_loss[j]=tmp[j]+final_loss[j]
-                cs_clients+=1
+        # if cs[clients[i]]:
+        #     for j in range(len(models)):
+        #         final_loss[j]=tmp[j]+final_loss[j];;llll
+        #         cs_clients+=1
             # print("client",i,"tmp_loss",tmp,"final_loss",final_loss)
                 
     
     for i in range(len(models)):
         if cs_clients!=0:
-            final_loss[i]=final_loss[i]/N
+            final_loss[i]=final_loss[i]/cs_clients
 
     # save_arrays_to_files_float([final_loss],"#loss","txt")
     # print("final loss:",final_loss)
@@ -605,7 +617,7 @@ def eval_1(N,M,int):
 
 
     
-    f = open("#Proposal_target_"+str(gr)+"_worst_class.txt",'a')
+    f = open("#Proposal_target_"+str(gr)+"_worst_class_fix.txt",'a')
 
     #ここ以下をwhileで記述し、
     while(len(models)>0):
@@ -640,7 +652,7 @@ def eval_1(N,M,int):
     f.write("-----------------------------")
     f.close()
     # Y_MNISTを保存します
-    with open('delete_target_'+str(gr)+'_worst_class.pkl', 'wb') as f:
+    with open('delete_target_'+str(gr)+'_worst_class_fix.pkl', 'wb') as f:
         pickle.dump(delete_models, f)
 
 
@@ -692,14 +704,14 @@ def acc_u(idx):
         Pred = pickle.load(f) 
     with open('Test_answer.pkl', 'rb') as f:
         Ans = pickle.load(f) 
-    with open('delete_untarget_'+str(gr)+'_worst_class.pkl', 'rb') as f:
+    with open('delete_untarget_'+str(gr)+'_worst_class_fix.pkl', 'rb') as f:
         delete_models = pickle.load(f) 
     
     MODELS=[]
     for I in range(200):
         MODELS.append(I)
 
-    f =open('FLCert_untarget_'+str(gr)+'_worst_class.txt','a')
+    f =open('FLCert_untarget_'+str(gr)+'_worst_class_fix.txt','a')
     nn=0
     # print(delete_models)
     res=[]
@@ -728,7 +740,7 @@ def acc_u(idx):
     
     f.close()
     # Y_MNISTを保存します
-    with open('Acc_untarget_'+str(gr)+'_worst_class.pkl', 'wb') as FFF:
+    with open('Acc_untarget_'+str(gr)+'_worst_class_fix.pkl', 'wb') as FFF:
         pickle.dump(res, FFF)
     
 def acc_t(idx):
@@ -742,14 +754,14 @@ def acc_t(idx):
         Pred = pickle.load(f) 
     with open('Test_answer.pkl', 'rb') as f:
         Ans = pickle.load(f) 
-    with open('delete_target_'+str(gr)+'_worst_class.pkl', 'rb') as f:
+    with open('delete_target_'+str(gr)+'_worst_class_fix.pkl', 'rb') as f:
         delete_models = pickle.load(f) 
     
     MODELS=[]
     for I in range(200):
         MODELS.append(I)
 
-    f =open('FLCert_target_'+str(gr)+'_worst_class.txt','a')
+    f =open('FLCert_target_'+str(gr)+'_worst_class_fix.txt','a')
     nn=0
     # print(delete_models)
 
@@ -778,11 +790,11 @@ def acc_t(idx):
     
     f.close() 
     # Y_MNISTを保存します
-    with open('Acc_target_'+str(gr)+'_worst_class.pkl', 'wb') as FFF:
+    with open('Acc_target_'+str(gr)+'_worst_class_fix.pkl', 'wb') as FFF:
         pickle.dump(res, FFF) 
 
 
-#パラメータ設定
+#jgmmjlkjlkjlkjlkjlkパラメータ設定
 M=200
 N=1000
 k=5
@@ -796,5 +808,6 @@ idx=0
 # pred_mnist(idx)
 eval_1(N,M,idx)
 # show_res([196,197,198])
-pred_test(idx)
+# pred_test(idx)
 acc_t(idx)
+ 
