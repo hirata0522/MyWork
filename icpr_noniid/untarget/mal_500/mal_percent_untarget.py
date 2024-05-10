@@ -115,7 +115,7 @@ def get_indices_of_ones(matrix):
     return [np.where(row == 1)[0] for row in matrix]
 
 M=200
-num=100
+num=500
 
 mnist = keras.datasets.mnist
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
