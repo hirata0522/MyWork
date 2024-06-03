@@ -1,0 +1,7 @@
+1	0   Attacked
+2	0   Attacked
+3	0   Attacked
+4	0   Attacked
+5	0   Attacked
+6	0   Attacked
+7	0   Attacked

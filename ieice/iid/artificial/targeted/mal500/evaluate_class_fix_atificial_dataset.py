@@ -441,7 +441,7 @@ def pred_mnist(int):
 
             #結果の保存
             if Y[j]==0:
-                for k in range(len(group_y[i])):
+                for k in range(len(group_x[i])):
                     Y_GROUP[k].append(group_y[i][k])
             
             else:

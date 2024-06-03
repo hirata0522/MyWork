@@ -397,8 +397,6 @@ def pred_mnist(int):
     NNUM=[100,200,300,400,500]
     GGROUP=[100,200,300,400,500]
     M=200
-    class1=0
-    class2=6
     gr=GGROUP[int]
     # データの準備
     mnist = keras.datasets.mnist
@@ -441,24 +439,26 @@ def pred_mnist(int):
 
             #結果の保存
             if Y[j]==0:
-                for k in range(len(group_y[i])):
+                for k in range(len(group_x[i])):
                     Y_GROUP[k].append(group_y[i][k])
             
             else:
                 for k in range(len(group_x[i])):
-
-                    if group_y[i][k]!=class1:
-                        Y_GROUP[k].append(group_y[i][k])
-                    else:
-                        Y_GROUP[k].append(class2)
-                    
+                    Y_GROUP[k].append(0)
+                    # if k%10==0:
+                    #     Y_GROUP[k].append(group_y[i][k])
+                    # else:
+                    #     if group_y[i][k]!=9:
+                    #         Y_GROUP[k].append(group_y[i][k]+1)
+                    #     else:
+                    #         Y_GROUP[k].append(group_y[i][k]-1)
                                
         # print(Y_GROUP)
 
         Y_MNIST.append(Y_GROUP)
     
     # Y_MNISTを保存します
-    with open('Y_MNIST_artificial_target_'+str(gr)+'.pkl', 'wb') as f:
+    with open('Y_MNIST_artificial_untarget_'+str(gr)+'.pkl', 'wb') as f:
         pickle.dump(Y_MNIST, f)
 
 def cal_score(N,int,Y_MNIST,models,clients,X,class_a):
@@ -600,7 +600,7 @@ def eval_1(N,M,int):
     Y=create_if_group_poisoned(X,num)
     # print(Y)
 
-    with open('Y_MNIST_artificial_target_'+str(gr)+'.pkl', 'rb') as f:
+    with open('Y_MNIST_artificial_untarget_'+str(gr)+'.pkl', 'rb') as f:
         Y_MNIST = pickle.load(f)
     
     models=[]
@@ -624,10 +624,8 @@ def eval_1(N,M,int):
             add.append(y_mnist_tmp)
         Y_MNIST_class.append(add)
             
-
-
     
-    f = open("#Proposal_artificial_target_"+str(gr)+"_worst_class_fix.txt",'a')
+    f = open("#Proposal_target_"+str(gr)+"_worst_class_fix.txt",'a')
 
     #ここ以下をwhileで記述し、
     while(len(models)>0):
@@ -662,7 +660,7 @@ def eval_1(N,M,int):
     f.write("-----------------------------")
     f.close()
     # Y_MNISTを保存します
-    with open('delete_artificial_target_'+str(gr)+'_worst_class_fix.pkl', 'wb') as f:
+    with open('delete_artificial_untarget_'+str(gr)+'_worst_class_fix.pkl', 'wb') as f:
         pickle.dump(delete_models, f)
 
 
@@ -671,8 +669,6 @@ def pred_test(int):
     GGROUP=[100,200,300,400,500]
     gr=GGROUP[int]
     M=200
-    class1=0
-    class2=6
     # データの準備
     mnist = keras.datasets.mnist
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -712,11 +708,14 @@ def pred_test(int):
         
         else:
             for k in range(len(y_test)):
-
-                if y_test[k]!=class1:
-                    Y_GROUP[k].append(y_test[k])
-                else:
-                    Y_GROUP[k].append(class2) 
+                Y_GROUP[k].append(y_test[0])
+                # if k%10==0:
+                #     Y_GROUP[k].append(y_test[k])
+                # else:
+                #     if y_test[k]!=9:
+                #         Y_GROUP[k].append(y_test[k]+1)
+                #     else:
+                #         Y_GROUP[k].append(y_test[k]-1) 
 
     # Y_MNISTを保存します
     with open('Test_artificial_untarget_'+str(gr)+'_worst_class.pkl', 'wb') as f:
@@ -778,18 +777,18 @@ def acc_t(idx):
     class1=0
     res=[]
 
-    with open('Test_atificial_target_'+str(gr)+'_worst_class.pkl', 'rb') as f:
+    with open('Test_target_'+str(gr)+'_worst_class.pkl', 'rb') as f:
         Pred = pickle.load(f) 
-    with open('Test_atificial_answer.pkl', 'rb') as f:
+    with open('Test_answer.pkl', 'rb') as f:
         Ans = pickle.load(f) 
-    with open('delete_artificial_target_'+str(gr)+'_worst_class_fix.pkl', 'rb') as f:
+    with open('delete_target_'+str(gr)+'_worst_class_fix.pkl', 'rb') as f:
         delete_models = pickle.load(f) 
     
     MODELS=[]
     for I in range(200):
         MODELS.append(I)
 
-    f =open('FLCert_atificial_target_'+str(gr)+'_worst_class_fix.txt','a')
+    f =open('FLCert_target_'+str(gr)+'_worst_class_fix.txt','a')
     nn=0
     # print(delete_models)
 
@@ -818,11 +817,11 @@ def acc_t(idx):
     
     f.close() 
     # Y_MNISTを保存します
-    with open('Acc_atificial_target_'+str(gr)+'_worst_class_fix.pkl', 'wb') as FFF:
+    with open('Acc_target_'+str(gr)+'_worst_class_fix.pkl', 'wb') as FFF:
         pickle.dump(res, FFF) 
 
 
-#パラメータ設定
+#jgmmjlkjlkjlkjlkjlkパラメータ設定
 M=200
 N=1000
 k=5
@@ -832,9 +831,9 @@ k=5
 # not attacked model: 100/ attacker: 130
 # not attacked model:  75/ attacker: 179
 
-idx=0
+idx=4
 pred_mnist(idx)
 eval_1(N,M,idx)
 pred_test(idx)
-acc_t(idx)
+acc_u(idx)
 

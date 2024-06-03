@@ -399,11 +399,11 @@ def pred_mnist(int):
     M=200
     gr=GGROUP[int]
     # データの準備
-    mnist = keras.datasets.mnist
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    x_train, x_test = x_train / 255.0, x_test / 255.0
-    x_train = np.expand_dims(x_train, -1)
-    x_test = np.expand_dims(x_test, -1)
+    # mnist = keras.datasets.mnist
+    # (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    # x_train, x_test = x_train / 255.0, x_test / 255.0
+    # x_train = np.expand_dims(x_train, -1)
+    # x_test = np.expand_dims(x_test, -1)
 
 
     [group_x,group_y]=load_data()
@@ -444,13 +444,14 @@ def pred_mnist(int):
             
             else:
                 for k in range(len(group_x[i])):
-                    if k%10==0:
-                        Y_GROUP[k].append(group_y[i][k])
-                    else:
-                        if group_y[i][k]!=9:
-                            Y_GROUP[k].append(group_y[i][k]+1)
-                        else:
-                            Y_GROUP[k].append(group_y[i][k]-1)
+                    Y_GROUP[k].append(0)
+                    # if k%10==0:
+                    #     Y_GROUP[k].append(group_y[i][k])
+                    # else:
+                    #     if group_y[i][k]!=9:
+                    #         Y_GROUP[k].append(group_y[i][k]+1)
+                    #     else:
+                    #         Y_GROUP[k].append(group_y[i][k]-1)
                                
         # print(Y_GROUP)
 
@@ -584,11 +585,11 @@ def eval_1(N,M,int):
     num=NNUM[int]
     gr=GGROUP[int]
     # データの準備
-    mnist = keras.datasets.mnist
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    x_train, x_test = x_train / 255.0, x_test / 255.0
-    x_train = np.expand_dims(x_train, -1)
-    x_test = np.expand_dims(x_test, -1)
+    # mnist = keras.datasets.mnist
+    # (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    # x_train, x_test = x_train / 255.0, x_test / 255.0
+    # x_train = np.expand_dims(x_train, -1)
+    # x_test = np.expand_dims(x_test, -1)
 
 
     [group_x,group_y]=load_data()
@@ -707,13 +708,14 @@ def pred_test(int):
         
         else:
             for k in range(len(y_test)):
-                if k%10==0:
-                    Y_GROUP[k].append(y_test[k])
-                else:
-                    if y_test[k]!=9:
-                        Y_GROUP[k].append(y_test[k]+1)
-                    else:
-                        Y_GROUP[k].append(y_test[k]-1) 
+                Y_GROUP[k].append(y_test[0])
+                # if k%10==0:
+                #     Y_GROUP[k].append(y_test[k])
+                # else:
+                #     if y_test[k]!=9:
+                #         Y_GROUP[k].append(y_test[k]+1)
+                #     else:
+                #         Y_GROUP[k].append(y_test[k]-1) 
 
     # Y_MNISTを保存します
     with open('Test_artificial_untarget_'+str(gr)+'_worst_class.pkl', 'wb') as f:
@@ -829,9 +831,9 @@ k=5
 # not attacked model: 100/ attacker: 130
 # not attacked model:  75/ attacker: 179
 
-idx=0
-# pred_mnist(idx)
-# eval_1(N,M,idx)
-# pred_test(idx)
+idx=4
+pred_mnist(idx)
+eval_1(N,M,idx)
+pred_test(idx)
 acc_u(idx)
 
