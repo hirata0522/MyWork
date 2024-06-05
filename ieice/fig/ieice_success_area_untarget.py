@@ -88,10 +88,10 @@ plt.xlim(0,100)
 plt.xticks([0,100,200,300,400,500,600,700,800,900,1000])
 # plt.grid(True)
 plt.legend((g1[0], g2[0]), ("FLCert", "Proposed Method"))
-txt="Area_icpr.eps"
+txt="Area_ieice_untarget.eps"
 plt.savefig(txt)
 
-txt="Area_icpr.png"
+txt="Area_ieice_untarget.png"
 plt.savefig(txt)
 plt.clf()
 plt.close()

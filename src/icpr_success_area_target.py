@@ -25,8 +25,8 @@ def cal_E_E_mal(M,m_mal,p_ami,p_mal):
 N=1000
 M=200
 k=5
-p_ami=0.5
-p_mal=0.1
+p_ami=0.9999999
+p_mal=0
 p=[0]
 
 for i in range(N):
@@ -50,7 +50,7 @@ for i in range(N+1):
     sum=0
     for j in range(M//2+1):
         sum+=pp[j]
-    flcert.append(sum)
+    flcert.append(sum*p_ami+(1-sum)*p_mal)
 
     sum_p=0
     for j in range(M+1):
@@ -66,7 +66,7 @@ for i in range(N+1):
     if i==0:
         pro_1.append(1)
     else:
-        pro_1.append(sum_p)
+        pro_1.append(sum_p*p_ami+(1-sum_p)*p_mal)
 
 
 line_w=3
@@ -74,15 +74,18 @@ g1=plt.plot(idx,flcert,color="red", linewidth=line_w)
 g2=plt.plot(idx,pro_1,color="blue", linewidth=line_w)
 # ax.fill_between(A, Acc, facecolor='red', alpha=0.5)
 
-plt.title("Target Attack\np_ami="+str(p_ami)+"   p_mal="+str(p_mal))
+plt.title("Target Attack\np_ami="+str(1)+"   p_mal="+str(p_mal))
 plt.xlabel('Number of Malicious Clients')
-plt.ylabel('Success Rate')
+plt.ylabel('Target Accuracy')
 plt.ylim(0,1.05)
 plt.xlim(0,100)
 plt.xticks([0,100,200,300,400,500,600,700,800,900,1000])
 # plt.grid(True)
-plt.legend((g1[0], g2[0]), ("FLCert", "Proposed Method"),loc='lower right')
-txt="Area_icpr_target.png"
+plt.legend((g1[0], g2[0]), ("FLCert", "Proposed Method"))
+txt="Area_ieice_target.png"
+plt.savefig(txt)
+
+txt="Area_ieice_target.eps"
 plt.savefig(txt)
 plt.clf()
 plt.close()
