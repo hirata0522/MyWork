@@ -75,8 +75,8 @@ for i in range(N+1):
 
 
 line_w=3
-g1=plt.plot(idx,flcert,color="red", linewidth=line_w)
-g2=plt.plot(idx,pro_1,color="blue", linewidth=line_w)
+g1=plt.plot(idx,flcert,color="blue", linewidth=line_w)
+g2=plt.plot(idx,pro_1,color="red", linewidth=line_w)
 # ax.fill_between(A, Acc, facecolor='red', alpha=0.5)
 
 # plt.title("Target Attack\np_ami="+str(p_ami)+"   p_mal="+str(p_mal))
